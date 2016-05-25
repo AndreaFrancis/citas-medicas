@@ -12,6 +12,7 @@
 import _ from 'lodash';
 import {Asegurado} from '../../sqldb';
 
+
 function respondWithResult(res, statusCode) {
   statusCode = statusCode || 200;
   return function(entity) {
@@ -69,7 +70,8 @@ export function index(req, res) {
 export function show(req, res) {
   return Asegurado.find({
     where: {
-      _id: req.params.id
+      //_id: req.params.id
+      matricula: req.params.id
     }
   })
     .then(handleEntityNotFound(res))

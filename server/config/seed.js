@@ -7,7 +7,9 @@
 import sqldb from '../sqldb';
 var Thing = sqldb.Thing;
 var Especialidad = sqldb.Especialidad;
+var Medico = sqldb.Medico;
 
+/*
 Especialidad.sync()
   .then(() => {
     return Especialidad.destroy({where: {}});
@@ -21,6 +23,20 @@ Especialidad.sync()
       nombre: 'Neumologia'
     }])
   });
+
+Medico.sync()
+  .then(() => {
+    return Especialidad.destroy({where: {}});
+  })
+  .then(() => {
+    Especialidad.bulkCreate([{
+      nombre: 'Pediatria'
+    }, {
+      nombre: 'Cirujia'
+    }, {
+      nombre: 'Neumologia'
+    }])
+});
 
 Thing.sync()
   .then(() => {
@@ -56,4 +72,4 @@ Thing.sync()
              'and openshift subgenerators'
     }]);
   });
-
+*/

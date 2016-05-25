@@ -2,7 +2,7 @@
 
 class NavbarController {
   constructor() {
-    this.menu = [{
+      this.menu = [{
     	state:'usuario',
     	title: 'Usuarios'
     	}, {
@@ -28,6 +28,7 @@ class NavbarController {
     	title: 'Reservas'	
     	}];
   }
+
 }
 
 //end-non-standard

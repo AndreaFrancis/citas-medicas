@@ -11,6 +11,11 @@
 
 import _ from 'lodash';
 import {Especialidad} from '../../sqldb';
+import {Horario} from '../../sqldb';
+import {Medico} from '../../sqldb';
+import {Reserva} from '../../sqldb';
+import {Asegurado} from '../../sqldb';
+
 
 function respondWithResult(res, statusCode) {
   statusCode = statusCode || 200;
@@ -54,13 +59,17 @@ function handleEntityNotFound(res) {
 function handleError(res, statusCode) {
   statusCode = statusCode || 500;
   return function(err) {
+    console.log("Error i:" + err);
     res.status(statusCode).send(err);
   };
 }
 
 // Gets a list of Especialidads
-export function index(req, res) {
-  return Especialidad.findAll()
+export function index(req, res) {  
+  return Especialidad.findAll(
+    {
+      include:[{model: Horario, as: 'Horarios', include:[{model: Medico, as: 'Medico'}, {model:Reserva, as:'Reservas', include:[{model:Asegurado, as:'Asegurado'}]}]}]
+    })
     .then(respondWithResult(res))
     .catch(handleError(res));
 }

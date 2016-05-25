@@ -11,6 +11,9 @@
 
 import _ from 'lodash';
 import {Horario} from '../../sqldb';
+import {Reserva} from '../../sqldb';
+import {Asegurado} from '../../sqldb';
+
 
 function respondWithResult(res, statusCode) {
   statusCode = statusCode || 200;
@@ -60,7 +63,7 @@ function handleError(res, statusCode) {
 
 // Gets a list of Horarios
 export function index(req, res) {
-  return Horario.findAll()
+  return Horario.findAll({include:[{model:Reserva, as:'Reservas'}]})
     .then(respondWithResult(res))
     .catch(handleError(res));
 }

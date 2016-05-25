@@ -78,9 +78,31 @@ export function show(req, res) {
 }
 
 // Creates a new Reserva in the DB
+//TODO - DESCONTAR NRO DE FICHAS
 export function create(req, res) {
   return Reserva.create(req.body)
-    .then(respondWithResult(res, 201))
+    .then(function(res) { 
+      Horario.find({
+        where: {
+        _id: req.params.fk_horario
+      }
+    })
+    .then(handleEntityNotFound(res))
+    .then(
+      function(entity) {
+        if (entity) {
+          var fichas = entity.fichas_actual;
+          fichas--;
+          entity.fechas_actual = fichas;
+          return entity.updateAttributes(['fichas_actual'])
+          .then(updated => {
+            return updated;
+          });
+        }
+      }
+    )
+    .catch(handleError(res))
+    })
     .catch(handleError(res));
 }
 
