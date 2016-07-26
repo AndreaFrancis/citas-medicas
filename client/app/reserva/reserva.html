@@ -10,7 +10,6 @@
 
       <uib-accordion close-others="oneAtATime">
           <uib-accordion-group ng-repeat="m in e.Medicos" heading="{{m.nombres}} {{m.apellidos}}" is-open="status" is-disabled="isFirstDisabled">
-            Maquina
             <ul ng-repeat="h in m.Horarios">
               <li>
                 {{vm.obtenerDia(h.fecha)}}

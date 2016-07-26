@@ -68,7 +68,7 @@ function handleError(res, statusCode) {
 export function indexSemana(req, res) {
   var maniana = new Date();
   var semana = new Date();
-  maniana.setDate(maniana.getDate() + 1);
+  //maniana.setDate(maniana.getDate() + 1);
   semana.setDate(semana.getDate() + 8);
   console.log("MANANA>",maniana, " SEMANA>",semana);
   return Especialidad.findAll(
