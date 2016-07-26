@@ -7,30 +7,35 @@ class ReservaComponent {
     this.especialidades = [];
     this.asegurado = {};
     this.matricula = null;
+    this.dias = ["Domingo","Lunes", "Martes", "Miercoles", "Jueves", "Viernes", "Sabado"];
   }
 
   listar() {
-  	this.$http.get('/api/horarios')
+  	/*this.$http.get('/api/horarios')
         .then(response => {
           console.log(response);
           this.horarios = response.data;
-        });
+        });*/
   }
 
+  obtenerDia(fecha){
+    var date = new Date(fecha);
+    return this.dias[date.getDay()] + " "+date.toLocaleDateString();
+  }
   eliminar(horario) {
   	this.$http.delete('/api/horarios/'+horario._id);
   }
 
-  seleccionarMedico(medico) { 
+  seleccionarMedico(medico) {
   	this.medico = medico;
   }
 
-  seleccionarEspecialidad(especialidad) { 
+  seleccionarEspecialidad(especialidad) {
   	this.especialidad = especialidad;
   }
 
   login() {
-    if(this.matricula != null && this.matricula.trim() != '') { 
+    if(this.matricula != null && this.matricula.trim() != '') {
         var matricula = this.matricula.trim();
         this.$http.get('/api/asegurados/'+matricula)
         .then(response => {
@@ -57,12 +62,12 @@ class ReservaComponent {
 
   $onInit() {
   	this.listar();
-  	this.$http.get('/api/medicos')
+  	/*this.$http.get('/api/medicos')
         .then(response => {
           console.log(response);
           this.medicos = response.data;
-        });
-    this.$http.get('/api/especialidades')
+        });*/
+    this.$http.get('/api/especialidades/semana')
         .then(response => {
           console.log(response);
           this.especialidades = response.data;

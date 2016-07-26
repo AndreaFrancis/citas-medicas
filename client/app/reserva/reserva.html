@@ -7,7 +7,18 @@
 </div>
 <uib-accordion close-others="oneAtATime">
     <uib-accordion-group ng-repeat="e in vm.especialidades" heading="{{e.nombre}}" is-open="status" is-disabled="isFirstDisabled">
-		<table>
+
+      <uib-accordion close-others="oneAtATime">
+          <uib-accordion-group ng-repeat="m in e.Medicos" heading="{{m.nombres}} {{m.apellidos}}" is-open="status" is-disabled="isFirstDisabled">
+            Maquina
+            <ul ng-repeat="h in m.Horarios">
+              <li>
+                {{vm.obtenerDia(h.fecha)}}
+              </li>
+            </ul>
+          </uib-accordion-group>
+      </uib-accordion>
+    <!--table>
 			<tr>
 				<th>Fecha</th>
 				<th>Medico</th>
@@ -42,6 +53,6 @@
 					</div>
 				</td>
 			</tr>
-		</table>
+		</table-->
     </uib-accordion-group>
   </uib-accordion>

@@ -44,11 +44,11 @@ class HorarioComponent {
   	this.$http.delete('/api/horarios/'+horario._id);
   }
 
-  seleccionarMedico(medico) { 
+  seleccionarMedico(medico) {
   	this.medico = medico;
   }
 
-  seleccionarEspecialidad(especialidad) { 
+  seleccionarEspecialidad(especialidad) {
   	this.especialidad = especialidad;
   }
 

@@ -65,10 +65,46 @@ function handleError(res, statusCode) {
 }
 
 // Gets a list of Especialidads
-export function index(req, res) {  
+export function indexSemana(req, res) {
+  var maniana = new Date();
+  var semana = new Date();
+  maniana.setDate(maniana.getDate() + 1);
+  semana.setDate(semana.getDate() + 8);
+  console.log("MANANA>",maniana, " SEMANA>",semana);
   return Especialidad.findAll(
     {
-      include:[{model: Horario, as: 'Horarios', include:[{model: Medico, as: 'Medico'}, {model:Reserva, as:'Reservas', include:[{model:Asegurado, as:'Asegurado'}]}]}]
+      //-include:[{model: Horario, as: 'Horarios', include:[{model: Medico, as: 'Medico'}, {model:Reserva, as:'Reservas', include:[{model:Asegurado, as:'Asegurado'}]}]}]
+      //--include:[{model:Medico, as:'Medicos',include:[{model:Horario, as:'Horarios', where:{$or:[{fecha:{$gte:maniana}},{fecha:{$lte:semana}}]}}]}]
+      include:[
+        {
+          model:Medico,
+          as:'Medicos',
+          include:[
+            {
+              model:Horario,
+              as:'Horarios',
+              where:{
+                  fecha:{
+                    $and:[
+                      {$gte:maniana},
+                      {$lte:semana}
+                    ]
+                  }
+                }
+              }
+          ]
+        }
+      ]
+    })
+    .then(respondWithResult(res))
+    .catch(handleError(res));
+}
+
+// Gets a list of Especialidads
+export function index(req, res) {
+  return Especialidad.findAll(
+    {
+      include:[{model:Medico, as:'Medicos',include:[{model:Horario, as:'Horarios'}]}]
     })
     .then(respondWithResult(res))
     .catch(handleError(res));

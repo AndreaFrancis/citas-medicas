@@ -6,6 +6,7 @@ var controller = require('./especialidad.controller');
 var router = express.Router();
 
 router.get('/', controller.index);
+router.get('/semana', controller.indexSemana);
 router.get('/:id', controller.show);
 router.post('/', controller.create);
 router.put('/:id', controller.update);

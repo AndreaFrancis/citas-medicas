@@ -80,6 +80,19 @@ export function show(req, res) {
     .catch(handleError(res));
 }
 
+// Obtener una lista de horarios segun medico y fechas
+export function semana(req, res) {
+  return Horario.find({
+    where: {
+      fk_medico: req.params.medico_id
+    }
+  })
+    .then(handleEntityNotFound(res))
+    .then(respondWithResult(res))
+    .catch(handleError(res));
+}
+
+
 // Creates a new Horario in the DB
 export function create(req, res) {
   return Horario.create(req.body)
