@@ -18,8 +18,6 @@ class AseguradoComponent {
     	nombres: this.asegurado.nombres,
     	apellidos: this.asegurado.apellidos,
     	matricula: this.asegurado.matricula,
-    	fk_usuario: 1,
-      fk_dependiente: 1,
       historia: 1,
       reserva_web: true
     });

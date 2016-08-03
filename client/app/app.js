@@ -7,4 +7,12 @@ angular.module('cosmilApp', ['cosmilApp.constants', 'ngCookies', 'ngResource', '
     $urlRouterProvider.otherwise('/');
 
     $locationProvider.html5Mode(true);
+  })
+  .filter('range', function(){
+    return function(input, total) {
+      total = parseInt(total);
+      for (var i=0; i<total; i++)
+        input.push(i);
+      return input;
+    };
   });

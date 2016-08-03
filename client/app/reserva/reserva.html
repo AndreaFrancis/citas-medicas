@@ -7,51 +7,50 @@
 </div>
 <uib-accordion close-others="oneAtATime">
     <uib-accordion-group ng-repeat="e in vm.especialidades" heading="{{e.nombre}}" is-open="status" is-disabled="isFirstDisabled">
-
       <uib-accordion close-others="oneAtATime">
-          <uib-accordion-group ng-repeat="m in e.Medicos" heading="{{m.nombres}} {{m.apellidos}}" is-open="status" is-disabled="isFirstDisabled">
-            <ul ng-repeat="h in m.Horarios">
-              <li>
-                {{vm.obtenerDia(h.fecha)}}
-              </li>
-            </ul>
-          </uib-accordion-group>
+        <uib-accordion-group ng-repeat="m in e.Medicos" heading="{{m.nombres}} {{m.apellidos}}" is-open="status" is-disabled="isFirstDisabled">
+
+          <ul>
+            <li ng-repeat="h in m.Horarios">
+              {{vm.obtenerDia(h.fecha)}}
+
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th>Nro.</th>
+                    <th>Hora</th>
+                    <th>Estado</th>
+                    <th>Acciones</th>
+                  </tr>
+                </thead>
+                <tbody>
+                <!--tr ng-repeat="n in vm.obtenerObjetosReservaPorHorario(h)"-->
+                  <tr ng-repeat="n in h.Reservas">
+                    <th>{{n.nro}}</th>
+                    <td>Ojo</td>
+                    <td>{{n.estado}}</td>
+                    <td ng-show="n.estado =='OCUPADO'">X</td>
+                    <td>
+                      <button ng-show="n.estado == 'DISPONIBLE'" type="button" class="btn btn-default" ng-click="vm.open(n.nro,h)">Reservar</button>
+                    </td>
+                  </tr>
+                 <tbody>
+              </table>
+            </li>
+          </ul>
+        </uib-accordion-group>
       </uib-accordion>
-    <!--table>
-			<tr>
-				<th>Fecha</th>
-				<th>Medico</th>
-				<th>Minutos</th>
-				<th>Consultorio</th>
-				<th>Hora inicio</th>
-				<th>Hora Fin</th>
-				<th>Nro Fichas Disp</th>
-				<th>Reservas</th>
-				<th>Reservar</th>
-			</tr>
-			<tr ng-repeat="hor in e.Horarios">
-				<td>{{hor.fecha}}</td>
-				<td>{{hor.Medico.nombres}} {{hor.Medico.apellidos}}</td>
-				<td>{{hor.minutos}}</td>
-				<td>{{hor.consultorio}}</td>
-				<td>{{hor.hora_inicio}}</td>
-				<td>{{hor.hora_fin}}</td>
-				<td>{{hor.fichas_actual}}</td>
-				<td>
-					<ul>
-						<li ng-repeat="res in hor.Reservas">
-							{{res.nro}} - {{res.Asegurado.nombres}} {{res.Asegurado.apellidos}}
-						</li>
-					</ul>
-				</td>
-				<td>
-					<div class="form-group">
-      					<input type="text" class="form-control" id="matricula" ng-model="nro"
-           					placeholder="Nro. Ficha">
-      					<button type="button" class="btn btn-default" ng-click="vm.reservar(nro, hor)">R</button>
-					</div>
-				</td>
-			</tr>
-		</table-->
     </uib-accordion-group>
   </uib-accordion>
+  <script type="text/ng-template" id="myModalContent.html">
+          <div class="modal-header">
+              <h3 class="modal-title">Reserva</h3>
+          </div>
+          <div class="modal-body">
+              Esta seguro que desea reservar la cita medica?
+          </div>
+          <div class="modal-footer">
+              <button class="btn btn-primary" type="button" ng-click="vm.ok()">SI</button>
+              <button class="btn btn-warning" type="button" ng-click="vm.cancel()">NO</button>
+          </div>
+  </script>

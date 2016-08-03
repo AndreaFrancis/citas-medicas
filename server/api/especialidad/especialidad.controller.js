@@ -83,6 +83,12 @@ export function indexSemana(req, res) {
             {
               model:Horario,
               as:'Horarios',
+              include:[
+                {
+                  model:Reserva,
+                  as: 'Reservas'
+                }
+              ],
               where:{
                   fecha:{
                     $and:[

@@ -10,6 +10,6 @@ export default function(sequelize, DataTypes) {
     },
     nro: DataTypes.INTEGER,
     fecha_confirmada: DataTypes.DATE,
-    confirmada: DataTypes.BOOLEAN
+    estado: DataTypes.STRING
   });
 }

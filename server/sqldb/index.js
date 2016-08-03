@@ -156,7 +156,7 @@ db.Reserva.belongsTo(db.Asegurado, {
 db.Asegurado.hasMany(db.Asegurado, {
   foreignKey: {
     name: 'fk_dependiente',
-    allowNull: false
+    allowNull: true
   },
   as: 'Dependientes'
 });
@@ -164,7 +164,7 @@ db.Asegurado.hasMany(db.Asegurado, {
 db.Asegurado.belongsTo(db.Asegurado, {
   foreignKey: {
     name: 'fk_dependiente',
-    allowNull: false
+    allowNull: true
   },
   as: 'Asegurado'
 });
@@ -174,7 +174,7 @@ db.Asegurado.belongsTo(db.Asegurado, {
 db.Asegurado.belongsTo(db.Usuario, {
   foreignKey: {
     name: 'fk_usuario',
-    allowNull: false
+    allowNull: true
   },
   as: 'Usuario'
 });
