@@ -1,17 +1,18 @@
 /**
  * Using Rails-like standard naming convention for endpoints.
- * GET     /api/emergencias              ->  index
- * POST    /api/emergencias              ->  create
- * GET     /api/emergencias/:id          ->  show
- * PUT     /api/emergencias/:id          ->  update
- * DELETE  /api/emergencias/:id          ->  destroy
+ * GET     /api/personas              ->  index
+ * POST    /api/personas              ->  create
+ * GET     /api/personas/:id          ->  show
+ * PUT     /api/personas/:id          ->  update
+ * DELETE  /api/personas/:id          ->  destroy
  */
 
 'use strict';
 
 import _ from 'lodash';
-import {Emergencia} from '../../sqldb';
-import {Medico} from '../../sqldb';
+import {Persona} from '../../sqldb';
+
+
 function respondWithResult(res, statusCode) {
   statusCode = statusCode || 200;
   return function(entity) {
@@ -58,18 +59,19 @@ function handleError(res, statusCode) {
   };
 }
 
-// Gets a list of Emergencias
+// Gets a list of Personas
 export function index(req, res) {
-  return Emergencia.findAll({include:[{model: Medico, as: 'Medico'}]})
+  return Persona.findAll()
     .then(respondWithResult(res))
     .catch(handleError(res));
 }
 
-// Gets a single Emergencia from the DB
+// Gets a single Persona from the DB
 export function show(req, res) {
-  return Emergencia.find({
+  return Persona.find({
     where: {
-      _id: req.params.id
+      //_id: req.params.id
+      matricula: req.params.id
     }
   })
     .then(handleEntityNotFound(res))
@@ -77,19 +79,19 @@ export function show(req, res) {
     .catch(handleError(res));
 }
 
-// Creates a new Emergencia in the DB
+// Creates a new Persona in the DB
 export function create(req, res) {
-  return Emergencia.create(req.body)
+  return Persona.create(req.body)
     .then(respondWithResult(res, 201))
     .catch(handleError(res));
 }
 
-// Updates an existing Emergencia in the DB
+// Updates an existing Persona in the DB
 export function update(req, res) {
   if (req.body._id) {
     delete req.body._id;
   }
-  return Emergencia.find({
+  return Persona.find({
     where: {
       _id: req.params.id
     }
@@ -100,9 +102,9 @@ export function update(req, res) {
     .catch(handleError(res));
 }
 
-// Deletes a Emergencia from the DB
+// Deletes a Persona from the DB
 export function destroy(req, res) {
-  return Emergencia.find({
+  return Persona.find({
     where: {
       _id: req.params.id
     }

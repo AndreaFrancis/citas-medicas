@@ -8,10 +8,9 @@ export default function(sequelize, DataTypes) {
       primaryKey: true,
       autoIncrement: true
     },
-    nombres: DataTypes.STRING,
-    apellidos: DataTypes.STRING,
-    matricula: DataTypes.STRING,
-    historia: DataTypes.INTEGER,
-    reserva_web: DataTypes.BOOLEAN
+    grado: DataTypes.STRING,
+    fuerza: DataTypes.STRING,
+    tipo_asegurado: DataTypes.STRING,
+    matricula: DataTypes.STRING
   });
 }

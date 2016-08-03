@@ -8,8 +8,6 @@ export default function(sequelize, DataTypes) {
       primaryKey: true,
       autoIncrement: true
     },
-    nombres: DataTypes.STRING,
-    apellidos: DataTypes.STRING,
     matricula: DataTypes.STRING
   });
 }
