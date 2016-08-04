@@ -7,10 +7,10 @@ class NavbarController {
     	title: 'Usuarios'
     	}, {
     	state:'especialidad',
-    	title: 'Espacialidades'
+    	title: 'Especialidades'
     	}, {
     	state:'medico',
-    	title: 'Medicos'	
+    	title: 'Medicos'
     	}, {
 		state:'emergencia',
     	title: 'Emergencias'
@@ -19,14 +19,18 @@ class NavbarController {
     	title: 'Observaciones'
     	}, {
     	state:'horario',
-    	title: 'Horarios'	
+    	title: 'Horarios'
     	},  {
     	state:'asegurado',
-    	title: 'Asegurados'	
+    	title: 'Asegurados'
     	}, {
     	state:'reserva',
-    	title: 'Reservas'	
-    	}];
+    	title: 'Reservas'
+      },
+      {
+        state:'login',
+        title: 'Login'
+      }];
   }
 
 }
