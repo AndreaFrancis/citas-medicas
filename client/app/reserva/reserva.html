@@ -24,14 +24,13 @@
                   </tr>
                 </thead>
                 <tbody>
-                <!--tr ng-repeat="n in vm.obtenerObjetosReservaPorHorario(h)"-->
                   <tr ng-repeat="n in h.Reservas">
                     <th>{{n.nro}}</th>
                     <td>Ojo</td>
                     <td>{{n.estado}}</td>
-                    <td ng-show="n.estado =='OCUPADO'">X</td>
+                    <td ng-show="n.estado =='OCUPADO'"></td>
                     <td>
-                      <button ng-show="n.estado == 'DISPONIBLE'" type="button" class="btn btn-default" ng-click="vm.open(n.nro,h)">Reservar</button>
+                      <button ng-show="n.estado == 'DISPONIBLE'" type="button" class="btn btn-info" ng-click="vm.open(n.nro,h)">Reservar</button>
                     </td>
                   </tr>
                  <tbody>

@@ -8,6 +8,7 @@ class EmergenciaComponent {
     this.emergencias = [];
     this.medico = {};
     this.medicos = [];
+    this.dias = ["Domingo","Lunes", "Martes", "Miercoles", "Jueves", "Viernes", "Sabado"];
   }
 
   listar() {
@@ -16,6 +17,11 @@ class EmergenciaComponent {
           console.log(response);
           this.emergencias = response.data;
         });
+  }
+
+  obtenerDia(fecha){
+    var date = new Date(fecha);
+    return this.dias[date.getDay()] + " "+date.toLocaleDateString();
   }
 
   guardar() {
@@ -32,7 +38,7 @@ class EmergenciaComponent {
   	this.$http.delete('/api/emergencias/'+emergencia._id);
   }
 
-  seleccionarMedico(medico) { 
+  seleccionarMedico(medico) {
   	this.medico = medico;
   }
 

@@ -80,15 +80,13 @@ class ReservaComponent {
         }
       }
     });
-    //var funcionReservar = this.reservar;
     modalInstance.result.then(function (selectedItem) {
       console.log('Comienza reserva');
       console.log("OJO");
       if(asegurado._id != null) {
         var reserva = {
           fk_horario : horario._id,
-          //nro: nro+1,
-          nro: nro+1,
+          nro: nro,
           confirmada: false,
           fk_asegurado:asegurado._id,
           estado:"POR CONFIRMAR"
@@ -104,43 +102,14 @@ class ReservaComponent {
     });
   }
 
-  /*obtenerReservaVinculada(indice, horario){
-    indice++;
-    var i = 0;
-    for (i=0; i<horario.Reservas.length;i++) {
-      var reserva = horario.Reservas[i];
-      if(reserva.nro == indice.toString()){
-        return reserva;
-      }
-    }
-    return {estado:"DISPONIBLE"};
-  }*/
-
   obtenerObjetosReservaPorHorario(horario){
     var objetos = [];
-
-    /*for (var i=1; i<=horario.fichas;i++) {
-      console.log(i);
-      var estado = "DISPONIBLE";
-      for (var j=0; j<horario.Reservas.length;j++) {
-        var reserva = horario.Reservas[j];
-        if(reserva.nro == i){
-          estado = "OCUPADO";
-        }
-      }
-      objetos.push({estado:"DISPONIBLE",nro:i});
-    }*/
     console.log("Devolviendo para ", horario.fichas);
     return objetos;
   }
 
   $onInit() {
   	this.listar();
-  	/*this.$http.get('/api/medicos')
-        .then(response => {
-          console.log(response);
-          this.medicos = response.data;
-        });*/
     this.$http.get('/api/especialidades/semana')
         .then(response => {
           for(var e=0; e<response.data.length;e++){

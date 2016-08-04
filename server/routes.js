@@ -11,6 +11,7 @@ export default function(app) {
   // Insert routes below
   app.use('/api/observaciones', require('./api/observacion'));
   app.use('/api/asegurados', require('./api/asegurado'));
+  app.use('/api/personas', require('./api/persona'));
   app.use('/api/usuarios', require('./api/usuario'));
   app.use('/api/reservas', require('./api/reserva'));
   app.use('/api/horarios', require('./api/horario'));

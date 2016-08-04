@@ -16,6 +16,7 @@ var db = {
 // Insert models below
 db.Observacion = db.sequelize.import('../api/observacion/observacion.model');
 db.Asegurado = db.sequelize.import('../api/asegurado/asegurado.model');
+db.Persona = db.sequelize.import('../api/persona/persona.model');
 db.Usuario = db.sequelize.import('../api/usuario/usuario.model');
 db.Reserva = db.sequelize.import('../api/reserva/reserva.model');
 db.Horario = db.sequelize.import('../api/horario/horario.model');
@@ -169,14 +170,35 @@ db.Asegurado.belongsTo(db.Asegurado, {
   as: 'Asegurado'
 });
 
-//relacion n-1 entre Asegurado y Usuario
+//relacion n-1 entre Medico y Persona
 
-db.Asegurado.belongsTo(db.Usuario, {
+db.Medico.belongsTo(db.Persona, {
   foreignKey: {
-    name: 'fk_usuario',
-    allowNull: true
+    name: 'fk_persona',
+    allowNull: false
   },
-  as: 'Usuario'
+  as: 'Persona'
 });
+
+//relacion n-1 entre Medico y Persona
+
+db.Usuario.belongsTo(db.Persona, {
+  foreignKey: {
+    name: 'fk_persona',
+    allowNull: false
+  },
+  as: 'Persona'
+});
+
+//relacion n-1 entre Medico y Persona
+
+db.Asegurado.belongsTo(db.Persona, {
+  foreignKey: {
+    name: 'fk_persona',
+    allowNull: false
+  },
+  as: 'Persona'
+});
+
 
 module.exports = db;
