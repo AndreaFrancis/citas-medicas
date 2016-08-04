@@ -1,25 +1,37 @@
 <div class="container">
-    <h3 class="page-header">Nuevo Usuario:</h3>
+    <h3 class="page-header">Nuevos datos personales:</h3>
     <div class="content">
       <div class="row">
         <form role="form" >
           <div class="col-md-12">
             <div class="form-group col-md-12">
-              <label for="nombre">Usuario </label>
+              <label for="nombre">Nombres </label>
               <input type="text" class="form-control" id="nombre" ng-model="vm.asegurado.nombres"
                      placeholder="Nombres">
             </div>
           </div>
           <div class="col-md-12">
             <div class="form-group col-md-6">
-              <label for="apaterno">Password </label>
+              <label for="apaterno">Apellido Paterno </label>
               <input type="text" class="form-control" id="apaterno" ng-model="vm.asegurado.apaterno"
                      placeholder="Apellido paterno">
             </div>
             <div class="form-group col-md-6">
-              <label for="amaterno">Rol </label>
+              <label for="amaterno">Apellido Materno </label>
               <input type="text" class="form-control" id="amaterno" ng-model="vm.asegurado.amaterno"
                      placeholder="Apellido materno">
+            </div>
+          </div>
+          <div class="col-md-12">
+            <div class="form-group col-md-6">
+              <label for="genero">Genero </label>
+              <input type="text" class="form-control" id="genero" ng-model="vm.asegurado.genero"
+                     placeholder="Genero">
+            </div>
+            <div class="form-group col-md-6">
+              <label for="fechanac">Fecha Nacimiento </label>
+              <input type="text" class="form-control" id="fechanac" ng-model="vm.asegurado.fecha_nacimineto"
+                     placeholder="Fecha nacimiento">
             </div>
           </div>
           <div class="col-md-12">
@@ -32,7 +44,7 @@
 <div class="container">
   <div class="row">
     <div class="col-lg-12">
-      <h3 class="page-header">Usuarios:</h3>
+      <h3 class="page-header">Datos personales:</h3>
       <ul class="nav nav-tabs nav-stacked col-md-4 col-lg-4 col-sm-6" ng-repeat="as in vm.asegurados">
         <li><a href="#" uib-tooltip="{{as.matricula}}">{{as.nombres}}</a></li>
       </ul>

@@ -2,34 +2,46 @@
 
 class NavbarController {
   constructor() {
-      this.menu = [{
+      this.menu = [
+      {
+      state:'persona',
+      title: 'Personas'
+      },
+      {
     	state:'usuario',
     	title: 'Usuarios'
-    	}, {
+    	},
+      {
     	state:'especialidad',
     	title: 'Especialidades'
-    	}, {
+    	},
+      {
     	state:'medico',
     	title: 'Medicos'
-    	}, {
-		state:'emergencia',
+    	},
+      {
+		  state:'emergencia',
     	title: 'Emergencias'
-    	}, {
-		state:'observacion',
+    	},
+      {
+		  state:'observacion',
     	title: 'Observaciones'
-    	}, {
+    	},
+      {
     	state:'horario',
     	title: 'Horarios'
-    	},  {
+    	},
+      {
     	state:'asegurado',
     	title: 'Asegurados'
-    	}, {
+    	},
+      {
     	state:'reserva',
     	title: 'Reservas'
       },
       {
-        state:'login',
-        title: 'Login'
+      state:'reporte',
+      title: 'Reportes'
       }];
   }
 

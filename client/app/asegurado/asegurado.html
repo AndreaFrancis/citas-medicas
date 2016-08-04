@@ -1,36 +1,44 @@
-<form role="form" >
-  <div class="form-group">
-    <label for="nombre">Nombres </label>
-    <input type="text" class="form-control" id="nombre" ng-model="vm.asegurado.nombres"
-           placeholder="Nombres">
-  </div>
-  <div class="form-group">
-    <label for="apeliidos">Apellidos </label>
-    <input type="text" class="form-control" id="apellidos" ng-model="vm.asegurado.apellidos"
-           placeholder="Apellidos">
-  </div>
-  <div class="form-group">
-    <label for="matricula">Matricula </label>
-    <input type="text" class="form-control" id="matricula" ng-model="vm.asegurado.matricula"
-           placeholder="Matricula">
-  </div>
-  <div class="form-group">
-    <label for="matricula">Historia Clinica </label>
-    <input type="text" class="form-control" id="matricula" ng-model="vm.asegurado.historia"
-           placeholder="H.C">
-  </div>
-  <div class="form-group">
-    <label for="matricula">Historia Dependiente </label>
-    <input type="text" class="form-control" id="matricula" ng-model="vm.asegurado.fk_dependiente"
-           placeholder="Dependiente">
-  </div>
-  
-  <button type="submit" class="btn btn-default" ng-click="vm.guardar()">Guardar</button>
-</form>
+<div class="container">
+    <h3 class="page-header">Nuevo asegurado:</h3>
+    <div class="content">
+      <div class="row">
+        <form role="form" >
+          <div class="col-md-12">
+            <div class="form-group col-md-6">
+              <label for="grado">Grado </label>
+              <input type="text" class="form-control" id="grado" ng-model="vm.asegurado.grado"
+                     placeholder="Grado">
+            </div>
+            <div class="col-md-6">
+              <label for="fuerza">Fuerza </label>
+              <input type="text" class="form-control" id="fuerza" ng-model="vm.asegurado.fuerza"
+                     placeholder="Fuerza">
+            </div>
+          </div>
+          <div class="col-md-12">
+            <div class="form-group col-md-6">
+              <label for="tipo_asegurado">Tipo asegurado </label>
+              <input type="text" class="form-control" id="tipo_asegurado" ng-model="vm.asegurado.tipo_asegurado"
+                     placeholder="Tipo asegurado">
+            </div>
+            <div class="col-md-6">
+              <label for="matrcula">Matricula </label>
+              <input type="text" class="form-control" id="matrcula" ng-model="vm.asegurado.matrcula"
+                     placeholder="Matricula">
+            </div>
+          </div>
+          <div class="col-md-12">
+              <button type="submit" class="btn btn-info pull-right" ng-click="vm.guardar()">Guardar</button>
+          </div>
+        </form>
+      </div>
+    </div>
+</div>
+
 <div class="container">
   <div class="row">
     <div class="col-lg-12">
-      <h1 class="page-header">Asegurados:</h1>
+      <h3 class="page-header">Asegurados:</h3>
       <ul class="nav nav-tabs nav-stacked col-md-4 col-lg-4 col-sm-6" ng-repeat="as in vm.asegurados">
         <li><a href="#" uib-tooltip="{{as.matricula}}">{{as.nombres}}</a></li>
       </ul>

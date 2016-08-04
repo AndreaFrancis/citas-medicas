@@ -12,7 +12,9 @@ import http from 'http';
 // Populate databases with sample data
 if (config.seedDB) { require('./config/seed'); }
 
+
 // Setup server
+
 var app = express();
 var server = http.createServer(app);
 require('./config/express').default(app);
@@ -30,6 +32,10 @@ sqldb.sequelize.sync()
   .catch(function(err) {
     console.log('Server failed to start due to error: %s', err);
   });
+
+//Configuracion de la autencicacion con tokens
+var jwt    = require('jsonwebtoken');
+app.set('superSecret', config.secret);
 
 // Expose app
 exports = module.exports = app;

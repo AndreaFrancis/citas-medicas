@@ -72,7 +72,28 @@ export function show(req, res) {
       _id: req.params.id
     }
   })
-    .then(handleEntityNotFound(res))
+    .then(function(res){
+      return function(entity) {
+        if (!entity) {
+          res.status(404).end();
+          return null;
+        }
+        if (entity.password != req.body.password) {
+          res.json({ success: false, message: 'Authentication failed. Wrong password.' });
+        } else {
+          var token = jwt.sign(user, app.get('superSecret'), {
+            expiresInMinutes: 1440 // expires in 24 hours
+          });
+          // return the information including token as JSON
+          res.json({
+            success: true,
+            message: 'Enjoy your token!',
+            token: token
+          });
+        }
+        return entity;
+      };
+    })
     .then(respondWithResult(res))
     .catch(handleError(res));
 }
@@ -109,5 +130,17 @@ export function destroy(req, res) {
   })
     .then(handleEntityNotFound(res))
     .then(removeEntity(res))
+    .catch(handleError(res));
+}
+
+// Autenticacion con jsonwt
+export function autenticar(req, res) {
+  Usuario.find({
+    where: {
+      usuario: req.params.usuario
+    }
+  })
+    .then(handleEntityNotFound(res))
+    .then(respondWithResult(res))
     .catch(handleError(res));
 }

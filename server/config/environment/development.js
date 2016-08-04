@@ -19,6 +19,7 @@ module.exports = {
     //uri: 'mysql://root:root@173.194.255.216:3306/cosmil'
     uri: 'mysql://root:root@localhost:3306/cosmil'
   },
+  secret: 'ilovescotchyscotch',
 
 
   // Seed database on startup
