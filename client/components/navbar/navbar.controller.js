@@ -10,62 +10,75 @@ class NavbarController {
       if(this.usuario != null) {
           this.logeado = this.usuario.username != null;
       }
-      this.roles = ROLES;
-      //this.$scope.$watch('this.$rootScope.globals.currentUser', this.actualizarUsuario());
-
-
-      this.menu = [
-      /*{
-      state:'persona',
-      title: 'Personas',
-      rol: this.roles.ADMIN
-    },*/
-      {
-    	state:'usuario',
-    	title: 'Usuarios'
-    	},
-      {
-    	state:'especialidad',
-    	title: 'Especialidades'
-    	},
-      {
-    	state:'medico',
-    	title: 'Medicos'
-    	},
-      {
-		  state:'emergencia',
-    	title: 'Emergencias'
-    	},
-      {
-		  state:'observacion',
-    	title: 'Observaciones'
-    	},
-      {
-    	state:'horario',
-    	title: 'Horarios'
-    	},
-      {
-    	state:'asegurado',
-    	title: 'Asegurados'
-    	},
-      {
-    	state:'reserva',
-    	title: 'Reservar'
-      },
-      {
-      state:'reporte',
-      title: 'Reportes'
-      },
-      {
-      state:'mis-reservas',
-      title: 'Mis reservas'
-      },
-      {
-      state:'lista-reservas',
-      title: 'Lista reservas'
-      }];
+      this.ROLES = ROLES;
+      if(this.usuario != null) {
+        this.menu = [
+        /*{
+        state:'persona',
+        title: 'Personas',
+        rol: this.roles.ADMIN
+      },*/
+        {
+        state:'usuario',
+        title: 'Usuarios',
+        permitido: this.usuario.rol == this.ROLES.ADMIN
+        },
+        {
+        state:'especialidad',
+        title: 'Especialidades',
+        permitido: this.usuario.rol == this.ROLES.ADMIN
+        },
+        {
+        state:'medico',
+        title: 'Medicos',
+        permitido: this.usuario.rol == this.ROLES.ADMIN
+        },
+        {
+        state:'emergencia',
+        title: 'Emergencias',
+        permitido: this.usuario.rol == this.ROLES.ADMIN
+        },
+        {
+        state:'observacion',
+        title: 'Observaciones',
+        permitido: this.usuario.rol == this.ROLES.ADMIN
+        },
+        {
+        state:'horario',
+        title: 'Horarios',
+        permitido: this.usuario.rol == this.ROLES.ADMIN
+        },
+        {
+        state:'asegurado',
+        title: 'Asegurados',
+        permitido: this.usuario.rol == this.ROLES.ADMIN
+        },
+        {
+        state:'reserva',
+        title: 'Reservar',
+        permitido: this.usuario.rol == this.ROLES.ASEGURADO || this.usuario.rol == this.ROLES.RECEP
+        },
+        {
+        state:'reporte',
+        title: 'Reportes',
+        permitido: this.usuario.rol == this.ROLES.ADMIN
+        },
+        {
+        state:'mis-reservas',
+        title: 'Mis reservas',
+        permitido: this.usuario.rol == this.ROLES.ASEGURADO
+        },
+        {
+        state:'lista-reservas',
+        title: 'Lista reservas',
+        permitido: this.usuario.rol == this.ROLES.RECEP || this.usuario.rol == this.ROLES.BIO
+        }];
+      }
   }
 
+  verPerfil(){
+    this.$state.go('perfil');
+  }
   salir() {
     this.AuthenticationService.ClearCredentials();
     this.$state.go('login');

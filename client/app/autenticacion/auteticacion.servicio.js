@@ -43,10 +43,12 @@
             callback(response);
         }
 
-        function SetCredentials(username, password) {
+        function SetCredentials(username, rol, id) {
             $rootScope.globals = {
                 currentUser: {
-                    username: username
+                    username: username,
+                    rol: rol,
+                    id: id
                 }
             };
 
