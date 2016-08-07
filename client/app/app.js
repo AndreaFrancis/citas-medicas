@@ -16,7 +16,13 @@ angular.module('cosmilApp', ['cosmilApp.constants', 'ngCookies', 'ngResource', '
       return input;
     };
   })
-  .run(run);
+  .run(run)
+  .constant('ROLES', {
+    ADMIN:'ADMIN',
+    ASEGURADO:'ASEGURADO',
+    RECEP:'RECEPCIONISTA',
+    BIO:'BIOESTADISTCO'
+  });
 
 
   run.$inject = ['$rootScope', '$location', '$cookieStore', '$http', '$state'];

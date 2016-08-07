@@ -1,20 +1,25 @@
 'use strict';
 
 class NavbarController {
-  constructor($cookieStore,$rootScope,AuthenticationService,$state, $scope) {
+  constructor($cookieStore,$rootScope,AuthenticationService,$state, $scope, ROLES) {
       this.$scope = $scope;
       this.$state = $state;
       this.AuthenticationService = AuthenticationService;
       this.usuario = $rootScope.globals.currentUser;
-      this.logeado = this.usuario.username != null;
+      this.logeado = false;
+      if(this.usuario != null) {
+          this.logeado = this.usuario.username != null;
+      }
+      this.roles = ROLES;
       //this.$scope.$watch('this.$rootScope.globals.currentUser', this.actualizarUsuario());
 
 
       this.menu = [
-      {
+      /*{
       state:'persona',
-      title: 'Personas'
-      },
+      title: 'Personas',
+      rol: this.roles.ADMIN
+    },*/
       {
     	state:'usuario',
     	title: 'Usuarios'
@@ -45,11 +50,19 @@ class NavbarController {
     	},
       {
     	state:'reserva',
-    	title: 'Reservas'
+    	title: 'Reservar'
       },
       {
       state:'reporte',
       title: 'Reportes'
+      },
+      {
+      state:'mis-reservas',
+      title: 'Mis reservas'
+      },
+      {
+      state:'lista-reservas',
+      title: 'Lista reservas'
       }];
   }
 
