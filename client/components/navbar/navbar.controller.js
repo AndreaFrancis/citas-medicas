@@ -1,7 +1,15 @@
 'use strict';
 
 class NavbarController {
-  constructor() {
+  constructor($cookieStore,$rootScope,AuthenticationService,$state, $scope) {
+      this.$scope = $scope;
+      this.$state = $state;
+      this.AuthenticationService = AuthenticationService;
+      this.usuario = $rootScope.globals.currentUser;
+      this.logeado = this.usuario.username != null;
+      //this.$scope.$watch('this.$rootScope.globals.currentUser', this.actualizarUsuario());
+
+
       this.menu = [
       {
       state:'persona',
@@ -45,8 +53,12 @@ class NavbarController {
       }];
   }
 
-}
+  salir() {
+    this.AuthenticationService.ClearCredentials();
+    this.$state.go('login');
+  }
 
+}
 //end-non-standard
 
 angular.module('cosmilApp')

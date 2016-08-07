@@ -22,12 +22,13 @@ angular.module('cosmilApp', ['cosmilApp.constants', 'ngCookies', 'ngResource', '
   run.$inject = ['$rootScope', '$location', '$cookieStore', '$http', '$state'];
       function run($rootScope, $location, $cookieStore, $http, $state) {
 
-          //$rootScope.globals = $cookieStore.get('globals') || {};
+          $rootScope.globals = $cookieStore.get('globals') || {};
+          console.log($rootScope.globals);
           /*if ($rootScope.globals.currentUser) {
               //$http.defaults.headers.common['Authorization'] = 'Basic ' + $rootScope.globals.currentUser.authdata; // jshint ignore:line
           }*/
           $rootScope.$on('$locationChangeStart', function (event, next, current) {
-            console.log("GLOBALS: ", $rootScope.globals);
+            //console.log("GLOBALS: ", $rootScope.globals);
             console.log("PAGINA ACTUAL: ", $location.path());
               // redirect to login page if not logged in and trying to access a restricted page
               //var restrictedPage = $.inArray($location.path(), ['/login']) === -1;
