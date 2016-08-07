@@ -33,9 +33,5 @@ sqldb.sequelize.sync()
     console.log('Server failed to start due to error: %s', err);
   });
 
-//Configuracion de la autencicacion con tokens
-var jwt    = require('jsonwebtoken');
-app.set('superSecret', config.secret);
-
 // Expose app
 exports = module.exports = app;
