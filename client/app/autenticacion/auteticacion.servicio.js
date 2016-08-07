@@ -35,12 +35,13 @@
 
             /* Use this for real authentication
              ----------------------------------------------*/
-            /*$http.post('/api/Autenticacion', { username: username, password: password })
+            $http.post('/api/autenticacion', { usuario: username, password: password })
                 .success(function (response) {
                     callback(response);
-                });*/
-            response = { success: true };
-            callback(response);
+                });
+
+            //response = { success: true };
+            //callback(response);
         }
 
         function SetCredentials(username, rol, id) {

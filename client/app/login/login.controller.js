@@ -17,8 +17,9 @@ class LoginComponent {
     var AuthenticationService = this.AuthenticationService;
     var $location = this.$location;
     this.AuthenticationService.Login(usuario, password, function (response) {
-                if (response.success) {
-                    AuthenticationService.SetCredentials(usuario, "BIOESTADISTCO",1);
+                console.log(response);
+                if (response.usuario != null) {
+                    AuthenticationService.SetCredentials(response.usuario, response.rol,response._id);
                     $location.path('/');
                 } else {
                     //FlashService.Error(response.message);
