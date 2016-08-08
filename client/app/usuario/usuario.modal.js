@@ -10,6 +10,10 @@ function UsuarioCtrl($uibModalInstance) {
     this.$uibModalInstance.close({estado:'guardar', usuario:this.usuario, persona:this.persona});
   }
 
+  this.eliminar = function() {
+    this.$uibModalInstance.close('eliminar');
+  }
+
   this.cancel = function() {
     this.$uibModalInstance.dismiss('cancelar');
   }

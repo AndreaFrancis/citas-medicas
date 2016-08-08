@@ -1,59 +1,3 @@
-<!--div class="container">
-    <h3 class="page-header">Nuevo Usuario:</h3>
-    <div class="content">
-      <div class="row">
-        <form role="form" >
-          <div class="col-md-12">
-            <div class="form-group col-md-3">
-              <label for="nombre">Nombres </label>
-              <input type="text" class="form-control" id="nombre" ng-model="vm.persona.nombres"
-                     placeholder="Nombres">
-            </div>
-            <div class="form-group col-md-3">
-              <label for="apaterno">Apellido Paterno </label>
-              <input type="text" class="form-control" id="apaterno" ng-model="vm.persona.apaterno"
-                     placeholder="Apellido paterno">
-            </div>
-            <div class="form-group col-md-3">
-              <label for="amaterno">Apellido Materno </label>
-              <input type="text" class="form-control" id="amaterno" ng-model="vm.persona.amaterno"
-                     placeholder="Apellido materno">
-            </div>
-            <div class="form-group col-md-3">
-              <label for="genero">Genero </label>
-              <input type="text" class="form-control" id="genero" ng-model="vm.persona.genero"
-                     placeholder="Genero">
-            </div>
-          </div>
-          <div class="col-md-12">
-            <div class="form-group col-md-3">
-              <label for="nombre">Usuario </label>
-              <input type="text" class="form-control" id="nombre" ng-model="vm.usuario.usuario"
-                     placeholder="Usuario">
-            </div>
-            <div class="form-group col-md-3">
-              <label for="apaterno">Password </label>
-              <input type="text" class="form-control" id="apaterno" ng-model="vm.usuario.password"
-                     placeholder="Password">
-            </div>
-            <div class="form-group col-md-3">
-              <label for="amaterno">Rol </label>
-              <input type="text" class="form-control" id="amaterno" ng-model="vm.usuario.rol"
-                     placeholder="Rol">
-            </div>
-            <div class="form-group col-md-3">
-              <label for="fechanac">Fecha Nacimiento </label>
-              <input type="text" class="form-control" id="fechanac" ng-model="vm.persona.fecha_nacimineto"
-                     placeholder="AA-MM-DD">
-            </div>
-          </div>
-          <div class="col-md-12">
-            <button type="submit" class="btn btn-info pull-right" ng-click="vm.guardar()">Guardar</button>
-          </div>
-        </form>
-      </div>
-    </div>
-</div-->
 <div class="container">
   <div class="row">
     <div class="col-lg-12">
@@ -91,7 +35,7 @@
               <button  type="button" class="btn btn-info">
                 <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
               </button>
-              <button  type="button" class="btn btn-danger">
+              <button  type="button" class="btn btn-danger" ng-click="vm.eliminar(us)">
                 <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
               </button>
             </td>
@@ -102,6 +46,72 @@
     </div>
   </div>
 </div>
+<script type="text/ng-template" id="usuario-eliminar.html">
+        <div class="modal-header">
+            <h3 class="modal-title">Usuario</h3>
+        </div>
+        <div class="modal-body">
+          <div class="container pequenio">
+              <div class="content">
+                <div class="row">
+                  <form role="form" >
+                    <div class="col-md-12">
+                      <div class="form-group col-md-4">
+                        <label for="nombre">Nombres </label>
+                        <input type="text" class="form-control" id="nombre" ng-model="vm.persona.nombres" required="true"
+                               placeholder="Nombres">
+                      </div>
+                      <div class="form-group col-md-4">
+                        <label for="apaterno">Ap. Paterno </label>
+                        <input type="text" class="form-control" id="apaterno" ng-model="vm.persona.apaterno"
+                               placeholder="Apellido paterno">
+                      </div>
+                      <div class="form-group col-md-4">
+                        <label for="amaterno">Ap. Materno </label>
+                        <input type="text" class="form-control" id="amaterno" ng-model="vm.persona.amaterno"
+                               placeholder="Apellido materno">
+                      </div>
+                    </div>
+                    <div class="col-md-12">
+                      <div class="form-group col-md-4">
+                        <label for="nombre">Usuario </label>
+                        <input type="text" class="form-control" id="nombre" ng-model="vm.usuario.usuario" required="true"
+                               placeholder="Usuario">
+                      </div>
+                      <div class="form-group col-md-4">
+                        <label for="apaterno">Password </label>
+                        <input type="text" class="form-control" id="apaterno" ng-model="vm.usuario.password" required="true"
+                               placeholder="Password">
+                      </div>
+                      <div class="form-group col-md-4">
+                        <label for="amaterno">Rol </label>
+                        <input type="text" class="form-control" id="amaterno" ng-model="vm.usuario.rol" required="true"
+                               placeholder="Rol">
+                      </div>
+                    </div>
+                    <div class="col-md-12">
+                      <div class="form-group col-md-6">
+                        <label for="genero">Genero </label>
+                        <input type="text" class="form-control" id="genero" ng-model="vm.persona.genero" required="true"
+                               placeholder="Genero">
+                      </div>
+                      <div class="form-group col-md-6">
+                        <label for="fechanac">Fecha Nacimiento </label>
+                        <input type="text" class="form-control" id="fechanac" ng-model="vm.persona.fecha_nacimineto"
+                               placeholder="AA-MM-DD">
+                      </div>
+                    </div>
+                  </form>
+                </div>
+              </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-success" type="submit" ng-click="vm.ok()">Guardar</button>
+            <button class="btn btn-warning" type="button" ng-click="vm.cancel()">Cancelar</button>
+        </div>
+</script>
+
 <script type="text/ng-template" id="usuario-modal.html">
         <div class="modal-header">
             <h3 class="modal-title">Usuario</h3>
@@ -161,60 +171,22 @@
                 </div>
               </div>
           </div>
-
-        <!--div class="content">
-        <div class="row">
-          <form role="form" >
-            <div class="col-md-12">
-              <div class="form-group col-md-3">
-                <label for="nombre">Nombres </label>
-                <input type="text" class="form-control" id="nombre" ng-model="vm.persona.nombres"
-                       placeholder="Nombres">
-              </div>
-              <div class="form-group col-md-3">
-                <label for="apaterno">Apellido Paterno </label>
-                <input type="text" class="form-control" id="apaterno" ng-model="vm.persona.apaterno"
-                       placeholder="Apellido paterno">
-              </div>
-              <div class="form-group col-md-3">
-                <label for="amaterno">Apellido Materno </label>
-                <input type="text" class="form-control" id="amaterno" ng-model="vm.persona.amaterno"
-                       placeholder="Apellido materno">
-              </div>
-              <div class="form-group col-md-3">
-                <label for="genero">Genero </label>
-                <input type="text" class="form-control" id="genero" ng-model="vm.persona.genero"
-                       placeholder="Genero">
-              </div>
-            </div>
-            <div class="col-md-12">
-              <div class="form-group col-md-3">
-                <label for="nombre">Usuario </label>
-                <input type="text" class="form-control" id="nombre" ng-model="vm.usuario.usuario"
-                       placeholder="Usuario">
-              </div>
-              <div class="form-group col-md-3">
-                <label for="apaterno">Password </label>
-                <input type="text" class="form-control" id="apaterno" ng-model="vm.usuario.password"
-                       placeholder="Password">
-              </div>
-              <div class="form-group col-md-3">
-                <label for="amaterno">Rol </label>
-                <input type="text" class="form-control" id="amaterno" ng-model="vm.usuario.rol"
-                       placeholder="Rol">
-              </div>
-              <div class="form-group col-md-3">
-                <label for="fechanac">Fecha Nacimiento </label>
-                <input type="text" class="form-control" id="fechanac" ng-model="vm.persona.fecha_nacimineto"
-                       placeholder="AA-MM-DD">
-              </div>
-            </div>
-          </form>
-        </div>
-      </div-->
         </div>
         <div class="modal-footer">
             <button class="btn btn-success" type="submit" ng-click="vm.ok()">Guardar</button>
             <button class="btn btn-warning" type="button" ng-click="vm.cancel()">Cancelar</button>
+        </div>
+</script>
+
+<script type="text/ng-template" id="eliminar-usuario.html">
+        <div class="modal-header">
+            <h3 class="modal-title">Eliminar</h3>
+        </div>
+        <div class="modal-body">
+          <span> ¿Desea eliminar el usuario?</span>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-success" type="submit" ng-click="vm.eliminar()">SI</button>
+            <button class="btn btn-warning" type="button" ng-click="vm.cancel()">NO</button>
         </div>
 </script>

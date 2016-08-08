@@ -14,6 +14,24 @@ class UsuarioComponent {
       this.listar();
   }
 
+  eliminar(usuario){
+    var self = this;
+    var modalInstance = this.$uibModal.open({
+      animation: true,
+      templateUrl: 'eliminar-usuario.html',
+      controller: 'UsuarioCtrl',
+      controllerAs:'vm',
+      size: 1
+    });
+    modalInstance.result.then(function (resultado) {
+        console.log("Entra a eliminar");
+        self.$http.delete('/api/usuarios/'+usuario._id);
+        self.listar();
+    }, function () {
+      console.log('Modal dismissed at: ' + new Date());
+    });
+  }
+
   abrir(){
     var self = this;
     var modalInstance = this.$uibModal.open({
@@ -59,10 +77,6 @@ class UsuarioComponent {
     }, function () {
       console.log('Modal dismissed at: ' + new Date());
     });
-  }
-
-  eliminar(usuario) {
-  	this.$http.delete('/api/usuarios/'+usuarios._id);
   }
 
   listar() {
