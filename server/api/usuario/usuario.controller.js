@@ -11,6 +11,7 @@
 
 import _ from 'lodash';
 import {Usuario} from '../../sqldb';
+import {Persona} from '../../sqldb';
 
 function respondWithResult(res, statusCode) {
   statusCode = statusCode || 200;
@@ -60,7 +61,7 @@ function handleError(res, statusCode) {
 
 // Gets a list of Usuarios
 export function index(req, res) {
-  return Usuario.findAll()
+  return Usuario.findAll({include:[{model: Persona, as: 'Persona'}]})
     .then(respondWithResult(res))
     .catch(handleError(res));
 }
@@ -79,6 +80,7 @@ export function show(req, res) {
 
 // Creates a new Usuario in the DB
 export function create(req, res) {
+  console.log(req.body);
   return Usuario.create(req.body)
     .then(respondWithResult(res, 201))
     .catch(handleError(res));

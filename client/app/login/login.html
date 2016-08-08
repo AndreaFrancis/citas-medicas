@@ -11,6 +11,11 @@
                                 <div class="form-group">
                                   <input type="password" class="form-control input-lg" ng-model="vm.password" placeholder="Contraseña">
                                 </div>
+                                <div class="alert alert-danger" role="alert" ng-if="vm.error != null">
+                                    <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                                    <span class="sr-only">Error:</span>
+                                    {{vm.error}}
+                                </div>
                                 <div class="form-group">
                                   <button class="btn btn-primary btn-lg btn-block" ng-click="vm.login()">Iniciar</button>
                                   <span class="pull-right"><a href="#">Olvide mi contraseña</a></span>

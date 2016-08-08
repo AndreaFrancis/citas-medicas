@@ -8,14 +8,15 @@ export default function(sequelize, DataTypes) {
       primaryKey: true,
       autoIncrement: true
     },
+    cambio: DataTypes.BOOLEAN,
     usuario: DataTypes.STRING,
     password: DataTypes.STRING,
     rol: {
       type: DataTypes.STRING,
       validate: {
-        isIn: [['admin', 'asegurado', 'bioestadistico']]
-      } 
-    } 
-    
+        isIn: [['ADMIN', 'ASEGURADO', 'RECEPCIONISTA', 'BIOESTADISTICO']]
+      }
+    }
+
   });
 }

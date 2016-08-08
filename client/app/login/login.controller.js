@@ -9,6 +9,7 @@ class LoginComponent {
     this.usuario = '';
     this.password = '';
     this.$location = $location;
+    this.error = null;
   }
 
   login(){
@@ -16,16 +17,18 @@ class LoginComponent {
     var password = this.password;
     var AuthenticationService = this.AuthenticationService;
     var $location = this.$location;
+    var self = this;
     this.AuthenticationService.Login(usuario, password, function (response) {
-                console.log(response);
                 if (response.usuario != null) {
                     AuthenticationService.SetCredentials(response.usuario, response.rol,response._id);
                     $location.path('/');
-                } else {
-                    //FlashService.Error(response.message);
-                    //vm.dataLoading = false;
                 }
-            });
+            },
+            function(status){
+                 console.log("Malo login");
+                 self.error = 'Usuario invalido';
+            }
+          );
   }
 }
 

@@ -30,19 +30,17 @@ angular.module('cosmilApp', ['cosmilApp.constants', 'ngCookies', 'ngResource', '
 
           $rootScope.globals = $cookieStore.get('globals') || {};
           console.log($rootScope.globals);
-          /*if ($rootScope.globals.currentUser) {
+          if ($rootScope.globals.currentUser) {
+            $state.go('main');
               //$http.defaults.headers.common['Authorization'] = 'Basic ' + $rootScope.globals.currentUser.authdata; // jshint ignore:line
-          }*/
+          } else {
+            $state.go('login');
+          }
           $rootScope.$on('$locationChangeStart', function (event, next, current) {
-            //console.log("GLOBALS: ", $rootScope.globals);
             console.log("PAGINA ACTUAL: ", $location.path());
-              // redirect to login page if not logged in and trying to access a restricted page
-              //var restrictedPage = $.inArray($location.path(), ['/login']) === -1;
               var ubicacionActual = $location.path();
               var restrictedPage = ubicacionActual != '/login' && ubicacionActual != '/';
-
               var loggedIn = $rootScope.globals.currentUser;
-              //var loggedIn = false;
               if (restrictedPage && !loggedIn) {
                   //$location.path('/login');
                 $state.go('login');

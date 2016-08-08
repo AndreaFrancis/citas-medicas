@@ -15,7 +15,7 @@
 
         return service;
 
-        function Login(username, password, callback) {
+        function Login(username, password, callback, erroCallback) {
             console.log("LOGIN");
             var response;
             /* Dummy authentication for testing, uses $timeout to simulate api call
@@ -38,10 +38,10 @@
             $http.post('/api/autenticacion', { usuario: username, password: password })
                 .success(function (response) {
                     callback(response);
+                })
+                .error(function(data,status, headers, config){
+                  erroCallback(status);
                 });
-
-            //response = { success: true };
-            //callback(response);
         }
 
         function SetCredentials(username, rol, id) {
