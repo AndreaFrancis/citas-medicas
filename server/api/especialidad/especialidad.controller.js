@@ -15,6 +15,7 @@ import {Horario} from '../../sqldb';
 import {Medico} from '../../sqldb';
 import {Reserva} from '../../sqldb';
 import {Asegurado} from '../../sqldb';
+import {Persona} from '../../sqldb';
 
 
 function respondWithResult(res, statusCode) {

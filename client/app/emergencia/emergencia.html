@@ -1,40 +1,11 @@
 <div class="container">
-    <h3 class="page-header">Nueva Emergencia:</h3>
-    <div class="content">
-      <div class="row">
-        <form role="form" >
-          <div class="col-md-12">
-            <div class="form-group col-md-6">
-              <label for="nombre">Fecha </label>
-              <uib-datepicker ng-model="vm.emergencia.fecha" ></uib-datepicker>
-            </div>
-            <div class="col-md-6">
-              <div class="btn-group control-group" uib-dropdown is-open="statusb.isopen">
-                  <button id="single-button" type="button" class="btn btn-primary" uib-dropdown-toggle ng-disabled="disabled">
-                    {{ vm.medico.nombres || 'Seleccione un medico' }}
-                    <span class="caret"></span>
-                  </button>
-                  <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="single-button">
-                    <li role="menuitem" ng-repeat="med in vm.medicos">
-                        <a href="" ng-click="vm.seleccionarMedico(med)">{{ med.nombres }} {{med.apellidos}}</a>
-                    </li>
-                  </ul>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-md-12">
-              <button type="submit" class="btn btn-info pull-right" ng-click="vm.guardar()">Guardar</button>
-          </div>
-        </form>
-      </div>
-    </div>
-</div>
-
-<div class="container">
   <div class="row">
     <div class="col-lg-12">
-      <h3 class="page-header">Emergencias:</h3>
+      <h3 class="page-header">Emergencias
+        <button  type="button" class="btn btn-info" ng-click="vm.abrir()">
+          <span class="glyphicon glyphicon-add" aria-hidden="true"></span>Nuevo
+        </button>
+      </h3>
 
       <table class="table">
         <thead>
@@ -49,12 +20,12 @@
           <tr ng-repeat="em in vm.emergencias">
             <th>{{$index+1}}</th>
             <td>{{vm.obtenerDia(em.fecha)}}</td>
-            <td>{{em.Medico.nombres}} {{em.Medico.apellidos}}</td>
+            <td>{{em.Medico.Persona.nombres}} {{em.Medico.Persona.apaterno}} {{em.Medico.Persona.amaterno}}</td>
             <td>
               <button  type="button" class="btn btn-info">
                 <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
               </button>
-              <button  type="button" class="btn btn-danger">
+              <button  type="button" class="btn btn-danger" ng-click="vm.eliminar(em)">
                 <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
               </button>
             </td>
@@ -64,3 +35,52 @@
     </div>
   </div>
 </div>
+<script type="text/ng-template" id="emergencia-modal.html">
+        <div class="modal-header">
+            <h3 class="modal-title">Emergencia</h3>
+        </div>
+        <div class="modal-body">
+          <div class="container pequenio">
+              <div class="content">
+                <div class="row">
+                  <form role="form" >
+                    <div class="col-md-12">
+                      <div class="btn-group control-group" uib-dropdown is-open="statusb.isopen">
+                          <button id="single-button" type="button" class="btn btn-primary" uib-dropdown-toggle ng-disabled="disabled">
+                            {{ vm.medico.Persona.nombres || 'Seleccione un medico' }} {{ vm.medico.Persona.apaterno || '' }} {{ vm.medico.Persona.amaterno || '' }}
+                            <span class="caret"></span>
+                          </button>
+                          <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="single-button">
+                            <li role="menuitem" ng-repeat="med in vm.medicos">
+                                <a href="" ng-click="vm.seleccionarMedico(med)">{{ med.Persona.nombres }} {{med.Persona.apaterno}} {{med.Persona.amaterno}}</a>
+                            </li>
+                          </ul>
+                      </div>
+                    </div>
+                      <div class="form-group col-md-12">
+                        <label for="nombre">Fecha </label>
+                        <uib-datepicker ng-model="vm.emergencia.fecha" ></uib-datepicker>
+                      </div>
+                  </form>
+                </div>
+              </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-success" type="submit" ng-click="vm.ok()">Guardar</button>
+            <button class="btn btn-warning" type="button" ng-click="vm.cancel()">Cancelar</button>
+        </div>
+</script>
+
+<script type="text/ng-template" id="eliminar-emergencia.html">
+        <div class="modal-header">
+            <h3 class="modal-title">Eliminar</h3>
+        </div>
+        <div class="modal-body">
+          <span> ¿Desea eliminar la emergencia?</span>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-success" type="submit" ng-click="vm.eliminar()">SI</button>
+            <button class="btn btn-warning" type="button" ng-click="vm.cancel()">NO</button>
+        </div>
+</script>

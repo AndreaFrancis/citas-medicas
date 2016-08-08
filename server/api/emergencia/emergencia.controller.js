@@ -12,6 +12,7 @@
 import _ from 'lodash';
 import {Emergencia} from '../../sqldb';
 import {Medico} from '../../sqldb';
+import {Persona} from '../../sqldb';
 function respondWithResult(res, statusCode) {
   statusCode = statusCode || 200;
   return function(entity) {
@@ -60,7 +61,21 @@ function handleError(res, statusCode) {
 
 // Gets a list of Emergencias
 export function index(req, res) {
-  return Emergencia.findAll({include:[{model: Medico, as: 'Medico'}]})
+  return Emergencia.findAll(
+    {
+      include:[
+        {
+          model: Medico,
+          as: 'Medico',
+          include:[
+            {
+              model:Persona,
+              as: 'Persona'
+            }
+          ]
+        }
+      ]
+    })
     .then(respondWithResult(res))
     .catch(handleError(res));
 }

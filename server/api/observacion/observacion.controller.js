@@ -11,6 +11,8 @@
 
 import _ from 'lodash';
 import {Observacion} from '../../sqldb';
+import {Medico} from '../../sqldb';
+import {Persona} from '../../sqldb';
 
 function respondWithResult(res, statusCode) {
   statusCode = statusCode || 200;
@@ -60,7 +62,22 @@ function handleError(res, statusCode) {
 
 // Gets a list of Observacions
 export function index(req, res) {
-  return Observacion.findAll()
+  return Observacion.findAll(
+    {
+      include:[
+        {
+          model: Medico,
+          as: 'Medico',
+          include:[
+            {
+              model:Persona,
+              as: 'Persona'
+            }
+          ]
+        }
+      ]
+    }
+  )
     .then(respondWithResult(res))
     .catch(handleError(res));
 }

@@ -2,12 +2,17 @@
 (function(){
 
 class ObservacionComponent {
-  constructor($http) {
+  constructor($http, $uibModal) {
   	this.$http = $http;
+    this.$uibModal = $uibModal;
     this.observacion = {};
     this.observaciones = [];
-    this.medico = {};
-    this.medicos = [];
+    this.dias = ["Domingo","Lunes", "Martes", "Miercoles", "Jueves", "Viernes", "Sabado"];
+  }
+
+  obtenerDia(fecha){
+    var date = new Date(fecha);
+    return this.dias[date.getDay()] + " "+date.toLocaleDateString();
   }
 
   listar() {
@@ -18,33 +23,57 @@ class ObservacionComponent {
         });
   }
 
-  guardar() {
-  	console.log(this.observacion);
-    this.$http.post('/api/observaciones', {
-    	fecha_inicio: this.observacion.fecha_inicio,
-    	fecha_fin: this.observacion.fecha_fin,
-    	motivo: this.observacion.motivo,
-    	fk_medico: this.medico._id
+  eliminar(observacion){
+    var self = this;
+    var modalInstance = this.$uibModal.open({
+      animation: true,
+      templateUrl: 'eliminar-observacion.html',
+      controller: 'ObservacionCtrl',
+      controllerAs:'vm',
+      size: 1
     });
-    this.observacion = {};
-    this.listar();
+    modalInstance.result.then(function (resultado) {
+        console.log("Entra a eliminar");
+        self.$http.delete('/api/observaciones/'+observacion._id);
+        self.listar();
+    }, function () {
+      console.log('Modal dismissed at: ' + new Date());
+    });
   }
 
-  eliminar(observacion) {
-  	this.$http.delete('/api/observaciones/'+observacion._id);
+  abrir(){
+    var self = this;
+    var modalInstance = this.$uibModal.open({
+      animation: true,
+      templateUrl: 'observacion-modal.html',
+      controller: 'ObservacionCtrl',
+      controllerAs:'vm',
+      size: 1
+    });
+    modalInstance.result.then(function (resultado) {
+        var medico = resultado.medico;
+        var observacion = resultado.observacion;
+        self.$http.post('/api/observaciones', {
+        fecha_inicio: observacion.fecha_inicio,
+      	fecha_fin: observacion.fecha_fin,
+      	motivo: observacion.motivo,
+      	fk_medico: medico._id
+      })
+      .success(function(response){
+        console.log("SUCCESS");
+        self.listar();
+      })
+      .error(function(status){
+        console.log("Error: ", status);
+      });
+    }, function () {
+      console.log('Modal dismissed at: ' + new Date());
+    });
   }
 
-  seleccionarMedico(medico) { 
-  	this.medico = medico;
-  }
 
   $onInit() {
   	this.listar();
-  	this.$http.get('/api/medicos')
-        .then(response => {
-          console.log(response);
-          this.medicos = response.data;
-        });
   }
 }
 
