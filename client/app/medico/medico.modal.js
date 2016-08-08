@@ -1,7 +1,5 @@
 function MedicoCtrl($uibModalInstance, $http) {
   this.$uibModalInstance = $uibModalInstance;
-  this.constructor = function($uibModalInstance) {
-  	this.$uibModalInstance = $uibModalInstance;
     this.medico = {};
     this.usuario = {};
     this.especialidades = [];
@@ -9,11 +7,13 @@ function MedicoCtrl($uibModalInstance, $http) {
     $http.get('/api/especialidades')
       .then(response => {
         this.especialidades = response.data;
+        console.log("OJO");
+        console.log(this.especialidades);
       });
-  }
+
 
   this.ok = function() {
-    this.$uibModalInstance.close({estado:'guardar', medico:this.medico, persona:this.persona, especialidad:especialidad});
+    this.$uibModalInstance.close({estado:'guardar', medico:this.medico, persona:this.persona, especialidad:this.especialidad});
   }
 
   this.eliminar = function() {

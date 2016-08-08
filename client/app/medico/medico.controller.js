@@ -13,18 +13,6 @@ class MedicoComponent {
       this.listar();
   }
 
-  guardar() {
-  	console.log(this.medico);
-    this.$http.post('/api/medicos', {
-    	nombres: this.medico.nombres,
-    	apellidos: this.medico.apellidos,
-    	matricula: this.medico.matricula,
-      fk_especialidad: this.especialidad._id
-    });
-    this.listar();
-    this.medico = {};
-  }
-
   eliminar(medico){
     var self = this;
     var modalInstance = this.$uibModal.open({
@@ -91,9 +79,6 @@ class MedicoComponent {
     this.especialidad = especialidad;
   }
 
-  eliminar(medico) {
-  	this.$http.delete('/api/medicos/'+medico._id);
-  }
 
   listar() {
     this.$http.get('/api/medicos')
