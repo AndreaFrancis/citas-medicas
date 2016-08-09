@@ -12,8 +12,9 @@
 import _ from 'lodash';
 import {Horario} from '../../sqldb';
 import {Reserva} from '../../sqldb';
-import {Asegurado} from '../../sqldb';
-
+import {Medico} from '../../sqldb';
+import {Persona} from '../../sqldb';
+import {Especialidad} from '../../sqldb';
 
 function respondWithResult(res, statusCode) {
   statusCode = statusCode || 200;
@@ -63,7 +64,9 @@ function handleError(res, statusCode) {
 
 // Gets a list of Horarios
 export function index(req, res) {
-  return Horario.findAll({include:[{model:Reserva, as:'Reservas'}]})
+  return Horario.findAll({include:[{model:Reserva, as:'Reservas'},
+                                  {model:Medico, as:'Medico',include:[{model:Persona, as:'Persona'}]},
+                                  {model:Especialidad, as:'Especialidad'}]})
     .then(respondWithResult(res))
     .catch(handleError(res));
 }
