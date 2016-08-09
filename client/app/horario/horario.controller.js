@@ -18,9 +18,13 @@ class HorarioComponent {
   listar() {
   	this.$http.get('/api/horarios')
         .then(response => {
-          console.log(response);
           this.horarios = response.data;
         });
+  }
+
+  obtenerHora(hora){
+    var date = new Date(hora);
+    return date.toLocaleTimeString();
   }
 
   eliminar(horario){
@@ -54,6 +58,10 @@ class HorarioComponent {
         var horario = resultado.horario;
         var especialidad = resultado.especialidad;
         var medico = resultado.medico;
+        console.log("=========HORARIO===========");
+        console.log(horario);
+        horario.hora_inicio.setSeconds(0);
+        horario.hora_fin.setSeconds(0);
         self.$http.post('/api/horarios', {
         fecha: horario.fecha,
       	fichas: horario.fichas,

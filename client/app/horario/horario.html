@@ -28,8 +28,8 @@
             <td>{{hor.Medico.Persona.nombres}} {{hor.Medico.Persona.apaterno}} {{hor.Medico.Persona.amaterno}}</td>
             <td>{{hor.Especialidad.nombre}}</td>
             <td>{{vm.obtenerDia(hor.fecha)}}</td>
-            <td>{{hor.hora_inicio}}</td>
-            <td>{{hor.hora_fin}}</td>
+            <td>{{vm.obtenerHora(hor.hora_inicio)}}</td>
+            <td>{{vm.obtenerHora(hor.hora_fin)}}</td>
             <td>{{hor.consultorio}}</td>
             <td>{{hor.fichas}}</td>
             <td>{{hor.fichas_actual}}</td>

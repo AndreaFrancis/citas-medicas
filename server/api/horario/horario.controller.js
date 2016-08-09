@@ -73,6 +73,7 @@ export function index(req, res) {
 
 // Gets a single Horario from the DB
 export function show(req, res) {
+  console.log("LLAMADO");
   return Horario.find({
     where: {
       _id: req.params.id

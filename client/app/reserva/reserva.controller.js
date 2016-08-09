@@ -29,7 +29,31 @@ class ReservaComponent {
     }
   }
 
-  listar() {
+  listar(){
+    this.$http.get('/api/especialidades/semana')
+        .then(response => {
+          for(var e=0; e<response.data.length;e++){
+            for(var m=0; m<response.data[e].Medicos.length; m++){
+              for(var h=0;h<response.data[e].Medicos[m].Horarios.length;h++){
+                var objetos = [];
+                for (var i=1; i<=response.data[e].Medicos[m].Horarios[h].fichas;i++) {
+                  var estado = "DISPONIBLE";
+                  console.log("Ficha ",i);
+                  for (var j=0; j<response.data[e].Medicos[m].Horarios[h].Reservas.length;j++) {
+                    var reserva = response.data[e].Medicos[m].Horarios[h].Reservas[j];
+                    if(reserva.nro == i){
+                      console.log("OCUPADO");
+                      estado = "OCUPADO";
+                    }
+                  }
+                  objetos.push({estado:estado,nro:i});
+                }
+                response.data[e].Medicos[m].Horarios[h].Reservas = objetos;
+              }
+            }
+          }
+          this.especialidades = response.data;
+        });
   }
 
   getIndice = function(num) {
@@ -105,8 +129,13 @@ class ReservaComponent {
           fk_asegurado:asegurado._id,
           estado:"POR CONFIRMAR"
         }
-        $http.post('/api/reservas', reserva);
-        self.listar();
+        $http.post('/api/reservas', reserva)
+        .success(funcion(reserva){
+          self.listar();
+        })
+        .error(function(err){
+          alert("No se pudo guardar la reserva, intentelo mas tarde");
+        })
       } else {
         alert("Debe ingresar su matricula para realizar una reserva");
       }
@@ -124,30 +153,6 @@ class ReservaComponent {
 
   $onInit() {
   	this.listar();
-    this.$http.get('/api/especialidades/semana')
-        .then(response => {
-          for(var e=0; e<response.data.length;e++){
-            for(var m=0; m<response.data[e].Medicos.length; m++){
-              for(var h=0;h<response.data[e].Medicos[m].Horarios.length;h++){
-                var objetos = [];
-                for (var i=1; i<=response.data[e].Medicos[m].Horarios[h].fichas;i++) {
-                  var estado = "DISPONIBLE";
-                  console.log("Ficha ",i);
-                  for (var j=0; j<response.data[e].Medicos[m].Horarios[h].Reservas.length;j++) {
-                    var reserva = response.data[e].Medicos[m].Horarios[h].Reservas[j];
-                    if(reserva.nro == i){
-                      console.log("OCUPADO");
-                      estado = "OCUPADO";
-                    }
-                  }
-                  objetos.push({estado:estado,nro:i});
-                }
-                response.data[e].Medicos[m].Horarios[h].Reservas = objetos;
-              }
-            }
-          }
-          this.especialidades = response.data;
-        });
   }
 }
 

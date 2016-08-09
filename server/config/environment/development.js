@@ -3,25 +3,11 @@
 // Development specific configuration
 // ==================================
 module.exports = {
-
-  // Sequelize connection opions
-  /*sequelize: {
-    uri: 'sqlite://',
-    options: {
-      logging: false,
-      storage: 'dev.sqlite',
-      define: {
-        timestamps: false
-      }
-    }
-  },*/
   sequelize: {
-    //uri: 'mysql://root:root@173.194.255.216:3306/cosmil'
-    uri: 'mysql://root:root@localhost:3306/cosmil'
+    //Cadena para correr localmente
+    //uri: 'mysql://root:root@localhost:3306/cosmil'
+    //Cadena para conectar con la nube
+    uri: 'mysql://root:root@173.194.242.46:3306/cossmil'
   },
-
-
-  // Seed database on startup
   seedDB: true
-
 };

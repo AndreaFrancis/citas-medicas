@@ -14,14 +14,12 @@ module.exports = {
           8080,
 
   sequelize: {
-    uri:  process.env.SEQUELIZE_URI ||
-          'sqlite://',
-    options: {
-      logging: false,
-      storage: 'dist.sqlite',
-      define: {
-        timestamps: false
-      }
-    }
+    sequelize: {
+      //Cadena para correr localmente
+      //uri: 'mysql://root:root@localhost:3306/cosmil'
+      uri: 'mysql://root:root@173.194.242.46:3306/cossmil'
+      //Cadena para conectar con la nube
+      //uri: 'mysql://root:root@:173.194.242.46:3306/cossmil'
+    },
   }
 };
