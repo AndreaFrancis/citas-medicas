@@ -11,7 +11,10 @@
 
 import _ from 'lodash';
 import {Reserva} from '../../sqldb';
-
+import {Horario} from '../../sqldb';
+import {Persona} from '../../sqldb';
+import {Medico} from '../../sqldb';
+import {Especialidad} from '../../sqldb';
 function respondWithResult(res, statusCode) {
   statusCode = statusCode || 200;
   return function(entity) {
@@ -67,21 +70,48 @@ export function index(req, res) {
 
 // Gets a single Reserva from the DB
 export function show(req, res) {
-  return Reserva.find({
+  /*return Reserva.find({
     where: {
       _id: req.params.id
     }
   })
     .then(handleEntityNotFound(res))
     .then(respondWithResult(res))
-    .catch(handleError(res));
+    .catch(handleError(res));*/
+  return Reserva.findAll({
+    where: {
+      fk_asegurado: req.params.id
+    },
+    include:[
+    {
+      model:Horario,
+      as:'Horario',
+      include:[
+        {
+          model:Especialidad,
+          as:'Especialidad'
+        },
+        {
+          model:Medico,
+          as:'Medico',
+          include:[{
+            model:Persona,
+            as:'Persona'
+          }]
+        }
+      ]
+    }
+    ]
+  })
+      .then(respondWithResult(res))
+      .catch(handleError(res));
 }
 
 // Creates a new Reserva in the DB
 //TODO - DESCONTAR NRO DE FICHAS
 export function create(req, res) {
   return Reserva.create(req.body)
-    .then(function(res) { 
+    .then(function(res) {
       Horario.find({
         where: {
         _id: req.params.fk_horario

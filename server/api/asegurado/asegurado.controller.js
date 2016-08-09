@@ -11,6 +11,7 @@
 
 import _ from 'lodash';
 import {Asegurado} from '../../sqldb';
+import {Persona} from '../../sqldb';
 
 
 function respondWithResult(res, statusCode) {
@@ -61,7 +62,7 @@ function handleError(res, statusCode) {
 
 // Gets a list of Asegurados
 export function index(req, res) {
-  return Asegurado.findAll()
+  return Asegurado.findAll({include:[{model:Persona, as:'Persona'}]})
     .then(respondWithResult(res))
     .catch(handleError(res));
 }
@@ -71,7 +72,7 @@ export function show(req, res) {
   return Asegurado.find({
     where: {
       //_id: req.params.id
-      matricula: req.params.id
+      fk_persona: req.params.id
     }
   })
     .then(handleEntityNotFound(res))

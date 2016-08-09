@@ -1,15 +1,19 @@
-<div class="form-group">
+<div class="form-group" ng-if="vm.esRecepcionista">
       <label for="matricula">Matricula </label>
       <input type="text" class="form-control" id="matricula" ng-model="vm.matricula"
            placeholder="Matricula">
       <button type="button" class="btn btn-default" ng-click="vm.login()">Login</button>
       {{vm.asegurado.nombres}} {{vm.asegurado.apellidos}}
 </div>
+<div class="container">
+  <div class="row">
+    <div class="col-md-2">
+    </div>
+    <div class="col-md-8">
 <uib-accordion close-others="oneAtATime">
-    <uib-accordion-group ng-repeat="e in vm.especialidades" heading="{{e.nombre}}" is-open="status" is-disabled="isFirstDisabled">
+    <uib-accordion-group ng-repeat="e in vm.especialidades" heading="{{e.nombre}}" is-open="statusEsp" is-disabled="isFirstDisabled">
       <uib-accordion close-others="oneAtATime">
-        <uib-accordion-group ng-repeat="m in e.Medicos" heading="{{m.nombres}} {{m.apellidos}}" is-open="status" is-disabled="isFirstDisabled">
-
+        <uib-accordion-group ng-repeat="m in e.Medicos" heading="{{m.Persona.nombres}} {{m.Persona.apaterno}} {{m.Persona.amaterno}}" is-open="statusMed" is-disabled="isFirstDisabled">
           <ul>
             <li ng-repeat="h in m.Horarios">
               {{vm.obtenerDia(h.fecha)}}
@@ -26,7 +30,7 @@
                 <tbody>
                   <tr ng-repeat="n in h.Reservas">
                     <th>{{n.nro}}</th>
-                    <td>Ojo</td>
+                    <td></td>
                     <td>{{n.estado}}</td>
                     <td ng-show="n.estado =='OCUPADO'"></td>
                     <td>
@@ -41,6 +45,11 @@
       </uib-accordion>
     </uib-accordion-group>
   </uib-accordion>
+</div>
+<div class="col-md-2">
+</div>
+</div>
+</div>
   <script type="text/ng-template" id="myModalContent.html">
           <div class="modal-header">
               <h3 class="modal-title">Reserva</h3>

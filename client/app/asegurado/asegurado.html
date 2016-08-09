@@ -63,7 +63,7 @@
             <th>{{$index+1}}</th>
             <td>{{as.Persona.nombres}}</td>
             <td>{{as.Persona.apaterno}}</td>
-            <td>{{med.Persona.amaterno}}</td>
+            <td>{{as.Persona.amaterno}}</td>
             <td>{{as.grado}}</td>
             <td>{{as.fuerza}}</td>
             <td>{{as.matricula}}</td>
@@ -85,9 +85,9 @@
 </div>
 
 
-<script type="text/ng-template" id="horario-modal.html">
+<script type="text/ng-template" id="asegurado-modal.html">
         <div class="modal-header">
-            <h3 class="modal-title">Horario</h3>
+            <h3 class="modal-title">Asegurado</h3>
         </div>
         <div class="modal-body">
           <div class="container pequenio">
@@ -95,63 +95,55 @@
                 <div class="row">
                   <form role="form" >
                     <div class="col-md-12">
-                      <div class="col-md-6">
-                        <div class="btn-group control-group" uib-dropdown is-open="statusb.isopen">
-                            <button id="single-button" type="button" class="btn btn-primary" uib-dropdown-toggle ng-disabled="disabled">
-                              {{ vm.medico.Persona.nombres || 'Seleccione un medico' }} {{ vm.medico.Persona.apaterno || '' }} {{ vm.medico.Persona.amaterno || '' }}
-                              <span class="caret"></span>
-                            </button>
-                            <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="single-button">
-                              <li role="menuitem" ng-repeat="med in vm.medicos">
-                                  <a href="" ng-click="vm.seleccionarMedico(med)">{{ med.Persona.nombres }} {{med.Persona.apaterno}} {{med.Persona.amaterno}}</a>
-                              </li>
-                            </ul>
-                        </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="btn-group control-group" uib-dropdown is-open="statusa.isopen">
-                                <button id="single-button" type="button" class="btn btn-primary" uib-dropdown-toggle ng-disabled="disabled">
-                                  {{ vm.especialidad.nombre || 'Seleccione una especialidad' }}
-                                  <span class="caret"></span>
-                                </button>
-                                <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="single-button">
-                                  <li role="menuitem" ng-repeat="esp in vm.especialidades">
-                                      <a href="" ng-click="vm.seleccionarEspecialidad(esp)">{{ esp.nombre }}</a>
-                                  </li>
-                                </ul>
-                            </div>
-                          </div>
-                        </div>
-                    <div class="col-md-12">
-                          <div class="form-group col-md-4">
-                            <label for="nombre">Nro. Fichas </label>
-                            <input type="text" class="form-control" id="nombre" ng-model="vm.horario.fichas"
-                                   placeholder="Fichas habiles">
-                          </div>
-                          <div class="form-group col-md-4">
-                            <label for="nombre">Minutos </label>
-                            <input type="text" class="form-control" id="nombre" ng-model="vm.horario.minutos"
-                                   placeholder="Tiempo de cada cita">
-                          </div>
-                          <div class="form-group col-md-4">
-                            <label for="nombre">Consultorio </label>
-                            <input type="text" class="form-control" id="nombre" ng-model="vm.horario.consultorio"
-                                   placeholder="Consultorio">
-                          </div>
-                    </div>
-                    <div class="form-group col-md-12">
-                          <div class="col-md-6">
-                            <label for="nombre">Hora inicio </label>
-                            <uib-timepicker ng-model="vm.horario.hora_inicio" hour-step="vm.hstep" minute-step="vm.mstep" show-meridian="vm.ismeridian"></uib-timepicker>
-                          </div>
-                          <div class="form-group col-md-6">
-                            <label for="nombre">Hora Fin </label>
-                            <uib-timepicker ng-model="vm.horario.hora_fin" hour-step="vm.hstep" minute-step="vm.mstep" show-meridian="vm.ismeridian"></uib-timepicker>
-                          </div>
+                      <div class="form-group col-md-4">
+                        <label for="nombre">Nombres </label>
+                        <input type="text" class="form-control" id="nombre" ng-model="vm.persona.nombres" required="true"
+                               placeholder="Nombres">
+                      </div>
+                      <div class="form-group col-md-4">
+                        <label for="apaterno">Ap. Paterno </label>
+                        <input type="text" class="form-control" id="apaterno" ng-model="vm.persona.apaterno"
+                               placeholder="Apellido paterno">
+                      </div>
+                      <div class="form-group col-md-4">
+                        <label for="amaterno">Ap. Materno </label>
+                        <input type="text" class="form-control" id="amaterno" ng-model="vm.persona.amaterno"
+                               placeholder="Apellido materno">
+                      </div>
                     </div>
                     <div class="col-md-12">
-                      <label for="nombre">Fecha </label>
-                      <uib-datepicker ng-model="vm.horario.fecha" ></uib-datepicker>
+                      <div class="form-group col-md-4">
+                        <label for="genero">Genero </label>
+                        <input type="text" class="form-control" id="genero" ng-model="vm.persona.genero" required="true"
+                               placeholder="Genero">
+                      </div>
+                      <div class="form-group col-md-4">
+                        <label for="fechanac">Fecha Nac. </label>
+                        <input type="text" class="form-control" id="fechanac" ng-model="vm.persona.fecha_nacimineto"
+                               placeholder="AA-MM-DD">
+                      </div>
+                      <div class="col-md-4">
+                        <label for="matrcula">Matricula </label>
+                        <input type="text" class="form-control" id="matrcula" ng-model="vm.asegurado.matricula"
+                               placeholder="Matricula">
+                      </div>
+                    </div>
+                    <div class="col-md-12">
+                      <div class="form-group col-md-4">
+                        <label for="grado">Grado </label>
+                        <input type="text" class="form-control" id="grado" ng-model="vm.asegurado.grado"
+                               placeholder="Grado">
+                      </div>
+                      <div class="col-md-4">
+                        <label for="fuerza">Fuerza </label>
+                        <input type="text" class="form-control" id="fuerza" ng-model="vm.asegurado.fuerza"
+                               placeholder="Fuerza">
+                      </div>
+                      <div class="form-group col-md-4">
+                        <label for="tipo_asegurado">Tipo asegurado </label>
+                        <input type="text" class="form-control" id="tipo_asegurado" ng-model="vm.asegurado.tipo_asegurado"
+                               placeholder="Tipo asegurado">
+                      </div>
                     </div>
                   </form>
                 </div>
@@ -164,12 +156,12 @@
         </div>
 </script>
 
-<script type="text/ng-template" id="eliminar-horario.html">
+<script type="text/ng-template" id="eliminar-asegurado.html">
         <div class="modal-header">
             <h3 class="modal-title">Eliminar</h3>
         </div>
         <div class="modal-body">
-          <span> ¿Desea eliminar el horario?</span>
+          <span> ¿Desea eliminar el asegurado?</span>
         </div>
         <div class="modal-footer">
             <button class="btn btn-success" type="submit" ng-click="vm.eliminar()">SI</button>

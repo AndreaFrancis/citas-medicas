@@ -82,6 +82,10 @@ export function indexSemana(req, res) {
           as:'Medicos',
           include:[
             {
+              model:Persona,
+              as:'Persona'
+            },
+            {
               model:Horario,
               as:'Horarios',
               include:[

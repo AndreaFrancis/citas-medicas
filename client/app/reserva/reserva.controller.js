@@ -2,7 +2,7 @@
 (function(){
 
 class ReservaComponent {
-  constructor($http,$uibModal) {
+  constructor($http,$uibModal, $rootScope, ROLES) {
   	this.$http = $http;
     this.$uibModal = $uibModal;
     this.especialidades = [];
@@ -11,6 +11,22 @@ class ReservaComponent {
     this.dias = ["Domingo","Lunes", "Martes", "Miercoles", "Jueves", "Viernes", "Sabado"];
     this.nro = 0;
     this.horario = {};
+    this.esRecepcionista = $rootScope.globals.currentUser.rol == ROLES.RECEP;
+
+    if(!this.esRecepcionista) {
+      var usuarioId = $rootScope.globals.currentUser.id;
+      console.log("Usuario: ",usuarioId);
+      this.$http.get('/api/usuarios/'+usuarioId)
+          .then(response => {
+            var personaId = response.data.Persona._id;
+            console.log("Persona: ",personaId);
+            this.$http.get('/api/asegurados/'+personaId)
+                .then(response => {
+                  console.log("Asegurado: ",response);
+                  this.asegurado = response.data;
+                });
+          });
+    }
   }
 
   listar() {
@@ -67,7 +83,7 @@ class ReservaComponent {
   open(nro, horario) {
     var $http = this.$http;
     var asegurado = this.asegurado;
-    console.log("Entrando");
+    var self = this;
     var modalInstance = this.$uibModal.open({
       animation: true,
       templateUrl: 'myModalContent.html',
@@ -81,8 +97,6 @@ class ReservaComponent {
       }
     });
     modalInstance.result.then(function (selectedItem) {
-      console.log('Comienza reserva');
-      console.log("OJO");
       if(asegurado._id != null) {
         var reserva = {
           fk_horario : horario._id,
@@ -92,7 +106,7 @@ class ReservaComponent {
           estado:"POR CONFIRMAR"
         }
         $http.post('/api/reservas', reserva);
-        //this.listar();
+        self.listar();
       } else {
         alert("Debe ingresar su matricula para realizar una reserva");
       }

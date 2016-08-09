@@ -71,7 +71,7 @@ export function show(req, res) {
   return Usuario.find({
     where: {
       _id: req.params.id
-    }
+    }, include:[{model:Persona, as:'Persona'}]
   })
     .then(handleEntityNotFound(res))
     .then(respondWithResult(res))
