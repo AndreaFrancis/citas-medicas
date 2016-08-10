@@ -1,0 +1,36 @@
+<div class="container">
+  <div class="row">
+    <div class="col-lg-12">
+      <h3 class="page-header">Reservas confirmadas de hoy {{vm.obtenerDia(vm.hoy)}}
+      </h3>
+      <table class="table" ng-repeat="h in vm.horarios">
+        <caption>
+          <b>Medico : </b>
+          {{h.Medico.Persona.nombres}} {{h.Medico.Persona.apaterno}} {{h.Medico.Persona.amaterno}}
+          <b>Especialidad</b>
+          {{h.Especialidad.nombre}}
+          <b>Consultorio</b>
+          {{h.consultorio}}
+        </caption>
+        <thead>
+          <tr>
+            <th>Nro.</th>
+            <th>Hora</th>
+            <th>Nro</th>
+            <th>Matricula</th>
+            <th>Asegurado</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat="res in h.Reservas" ng-if="res.estado == 'CONFIRMADA'">
+            <th>{{$index+1}}</th>
+            <td>{{vm.obtenerHora(h.hora_inicio,res.nro,h.minutos)}}</td>
+            <td>{{res.nro}}</td>
+            <td>{{res.Asegurado.matricula}}</td>
+            <td>{{res.Asegurado.Persona.nombres}} {{res.Asegurado.Persona.apaterno}} {{res.Asegurado.Persona.amaterno}}</td>
+          </tr>
+         <tbody>
+      </table>
+    </div>
+  </div>
+</div>

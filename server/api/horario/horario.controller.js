@@ -14,6 +14,7 @@ import {Horario} from '../../sqldb';
 import {Reserva} from '../../sqldb';
 import {Medico} from '../../sqldb';
 import {Persona} from '../../sqldb';
+import {Asegurado} from '../../sqldb';
 import {Especialidad} from '../../sqldb';
 
 function respondWithResult(res, statusCode) {
@@ -71,17 +72,45 @@ export function index(req, res) {
     .catch(handleError(res));
 }
 
-// Gets a single Horario from the DB
-export function show(req, res) {
-  console.log("LLAMADO");
-  return Horario.find({
-    where: {
-      _id: req.params.id
-    }
-  })
-    .then(handleEntityNotFound(res))
+// Gets a list of Horarios
+export function hoy(req, res) {
+  return Horario.findAll(
+    {
+      where:{
+        fecha: {
+          $lt: new Date(),
+          $gt: new Date(new Date() - 24 * 60 * 60 * 1000)
+        }
+      },
+      include:[{model:Reserva, as:'Reservas',include:[
+        {
+          model:Asegurado,
+          as:'Asegurado',
+          include:[
+            {
+              model:Persona,
+              as:'Persona'
+            }
+          ]
+        }
+      ]},
+                {model:Medico, as:'Medico',include:[{model:Persona, as:'Persona'}]},
+                                  {model:Especialidad, as:'Especialidad'}]})
     .then(respondWithResult(res))
     .catch(handleError(res));
+}
+
+// Gets a single Horario from the DB
+export function show(req, res) {
+    console.log("LLAMADO");
+    return Horario.find({
+      where: {
+        _id: req.params.id
+      }
+    })
+      .then(handleEntityNotFound(res))
+      .then(respondWithResult(res))
+      .catch(handleError(res));
 }
 
 // Obtener una lista de horarios segun medico y fechas

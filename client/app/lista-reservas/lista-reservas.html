@@ -1,1 +1,65 @@
-<div>This is the lista-reservas view.</div>
+<div class="container">
+  <div class="row">
+    <div class="col-md-2">
+    </div>
+    <div class="col-md-8">
+      <div class="form-group col-md-12">
+        <label for="matricula">Ingrese la matricula del asegurado </label>
+        <input type="text" class="form-control" id="matricula" ng-model="vm.matricula"
+           placeholder="Matricula">
+      </div>
+      <div class="col-md-3">
+      </div>
+      <div class="form-group col-md-6">
+        <button type="button" class="btn btn-info" ng-click="vm.login()">Buscar</button>
+        {{vm.asegurado.Persona.nombres}} {{vm.asegurado.Persona.apaterno}} {{vm.asegurado.Persona.amaterno}}
+      </div>
+      <div class="col-md-3">
+      </div>
+    </div>
+    <div class="col-md-2">
+    </div>
+  </div>
+</div>
+<div class="container">
+  <div class="row">
+    <div class="col-lg-12">
+      <h3 class="page-header">Reservas del asegurado
+      </h3>
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Nro.</th>
+            <th>Doctor</th>
+            <th>Especialidad</th>
+            <th>Fecha</th>
+            <th>Nro</th>
+            <th>Hora</th>
+            <th>Estado</th>
+            <th>Consultorio</th>
+            <th>Min/consulta</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat="res in vm.reservas" ng-if="res.estado == 'POR CONFIRMAR'">
+            <th>{{$index+1}}</th>
+            <td>{{res.Horario.Medico.Persona.nombres}} {{res.Horario.Medico.Persona.apaterno}} {{res.Horario.Medico.Persona.amaterno}}</td>
+            <td>{{res.Horario.Especialidad.nombre}}</td>
+            <td>{{vm.obtenerDia(res.Horario.fecha)}}</td>
+            <td>{{res.nro}}</td>
+            <td>{{vm.obtenerHora(res.Horario.hora_inicio,res.nro,res.Horario.minutos)}}</td>
+            <td>{{res.estado}}</td>
+            <td>{{res.Horario.consultorio}}</td>
+            <td>{{res.Horario.minutos}}</td>
+            <td>
+              <button  type="button" class="btn btn-success" ng-click="vm.confirmar(res)">
+                <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+              </button>
+            </td>
+          </tr>
+         <tbody>
+      </table>
+    </div>
+  </div>
+</div>

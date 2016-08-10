@@ -18,7 +18,7 @@ class MisReservasComponent {
     var newdate = new Date(date.getTime() + minutes*60000);
     return newdate.toLocaleTimeString();
   }
-  
+
   obtenerDia(fecha){
     var date = new Date(fecha);
     return this.dias[date.getDay()] + " "+date.toLocaleDateString();
