@@ -9,13 +9,46 @@
       </button>
       <a href="/" class="navbar-brand">cossmil</a>
     </div>
-    <div uib-collapse="nav.isCollapsed" class="navbar-collapse collapse" id="navbar-main" ng-if="nav.logeado">
+    <!--div uib-collapse="nav.isCollapsed" class="navbar-collapse collapse" id="navbar-main" ng-if="nav.logeado"-->
+    <div uib-collapse="nav.isCollapsed" class="navbar-collapse collapse" id="navbar-main" ng-if="globals.currentUser!=null">
       <ul class="nav navbar-nav">
-        <li ng-repeat="item in nav.menu" ui-sref-active="active">
-            <a ui-sref="{{item.state}}" ng-if="item.permitido">{{item.title}}</a>
+        <!--li ng-repeat="item in nav.menu" ui-sref-active="active"-->
+        <!--a ui-sref="{{item.state}}" ng-if="item.permitido">{{item.title}}</a-->
+        <li ui-sref-active="active" ng-if="globals.currentUser.rol == 'ADMIN'">
+            <a ui-sref="usuario">Usuarios</a>
+        </li>
+        <li ui-sref-active="active" ng-if="globals.currentUser.rol == 'ADMIN'">
+            <a ui-sref="especialidad">Especialidades</a>
+        </li>
+        <li ui-sref-active="active" ng-if="globals.currentUser.rol == 'ADMIN'">
+            <a ui-sref="medico">Medicos</a>
+        </li>
+        <li ui-sref-active="active" ng-if="globals.currentUser.rol == 'ADMIN'">
+            <a ui-sref="emergencia">Emergencias</a>
+        </li>
+        <li ui-sref-active="active" ng-if="globals.currentUser.rol == 'ADMIN'">
+            <a ui-sref="observacion">Observaciones</a>
+        </li>
+        <li ui-sref-active="active" ng-if="globals.currentUser.rol == 'ADMIN'">
+            <a ui-sref="horario">Horarios</a>
+        </li>
+        <li ui-sref-active="active" ng-if="globals.currentUser.rol == 'ADMIN'">
+            <a ui-sref="asegurado">Asegurados</a>
+        </li>
+        <li ui-sref-active="active" ng-if="globals.currentUser.rol == 'ASEGURADO' ||globals.currentUser.rol == 'RECEPCIONISTA' ">
+            <a ui-sref="reserva">Reservar</a>
+        </li>
+        <li ui-sref-active="active" ng-if="globals.currentUser.rol == 'ADMIN'">
+            <a ui-sref="reporte">Reportes</a>
+        </li>
+        <li ui-sref-active="active" ng-if="globals.currentUser.rol == 'ASEGURADO'">
+            <a ui-sref="mis-reservas">Mis reservas</a>
+        </li>
+        <li ui-sref-active="active" ng-if="globals.currentUser.rol == 'RECEPCIONISTA' ||globals.currentUser.rol == 'BIOESTADISTICO' ">
+            <a ui-sref="lista-reservas">Lista reservas</a>
         </li>
         <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{nav.usuario.username}} <span class="caret"></span></a>
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{globals.currentUser.username}} <span class="caret"></span></a>
           <ul class="dropdown-menu">
             <li><a href="#" ng-click="nav.verPerfil()">
               <span class="glyphicon glyphicon-user" aria-hidden="true"></span>

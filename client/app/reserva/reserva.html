@@ -1,9 +1,25 @@
-<div class="form-group" ng-if="vm.esRecepcionista">
-      <label for="matricula">Matricula </label>
-      <input type="text" class="form-control" id="matricula" ng-model="vm.matricula"
+<div class="container" ng-if="vm.esRecepcionista">
+  <div class="row">
+    <div class="col-md-2">
+    </div>
+    <div class="col-md-8">
+      <div class="form-group col-md-12">
+        <label for="matricula">Ingrese la matricula del asegurado </label>
+        <input type="text" class="form-control" id="matricula" ng-model="vm.matricula"
            placeholder="Matricula">
-      <button type="button" class="btn btn-default" ng-click="vm.login()">Login</button>
-      {{vm.asegurado.nombres}} {{vm.asegurado.apellidos}}
+      </div>
+      <div class="col-md-3">
+      </div>
+      <div class="form-group col-md-6">
+        <button type="button" class="btn btn-info" ng-click="vm.login()">Login</button>
+        {{vm.asegurado.Persona.nombres}} {{vm.asegurado.Persona.apaterno}} {{vm.asegurado.Persona.amaterno}}
+      </div>
+      <div class="col-md-3">
+      </div>
+    </div>
+    <div class="col-md-2">
+    </div>
+  </div>
 </div>
 <div class="container">
   <div class="row">

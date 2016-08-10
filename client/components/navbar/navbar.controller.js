@@ -13,11 +13,6 @@ class NavbarController {
       this.ROLES = ROLES;
       if(this.usuario != null) {
         this.menu = [
-        /*{
-        state:'persona',
-        title: 'Personas',
-        rol: this.roles.ADMIN
-      },*/
         {
         state:'usuario',
         title: 'Usuarios',

@@ -80,6 +80,24 @@ export function show(req, res) {
     .catch(handleError(res));
 }
 
+// Gets a single Asegurado from the DB
+export function matricula(req, res) {
+  return Asegurado.find({
+    where: {
+      matricula: req.params.id
+    },
+    include: [
+      {
+        model:Persona,
+        as:'Persona'
+      }
+    ]
+  })
+    .then(handleEntityNotFound(res))
+    .then(respondWithResult(res))
+    .catch(handleError(res));
+}
+
 // Creates a new Asegurado in the DB
 export function create(req, res) {
   return Asegurado.create(req.body)

@@ -80,7 +80,7 @@ class ReservaComponent {
   login() {
     if(this.matricula != null && this.matricula.trim() != '') {
         var matricula = this.matricula.trim();
-        this.$http.get('/api/asegurados/'+matricula)
+        this.$http.get('/api/asegurados/mat/'+matricula)
         .then(response => {
           this.asegurado = response.data;
         });
