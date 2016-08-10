@@ -1,6 +1,6 @@
 'use strict';
 (function(){
-
+//Clave asegurado 810506GCJ
 class ReservaComponent {
   constructor($http,$uibModal, $rootScope, ROLES) {
   	this.$http = $http;
@@ -121,16 +121,25 @@ class ReservaComponent {
       }
     });
     modalInstance.result.then(function (selectedItem) {
+      console.log("Asegurado");
+      console.log(asegurado);
+      console.log("Horario");
+      console.log(horario);
+      console.log("Numero");
+      console.log(nro);
       if(asegurado._id != null) {
         var reserva = {
-          fk_horario : horario._id,
+          fk_horario: horario._id,
           nro: nro,
           confirmada: false,
           fk_asegurado:asegurado._id,
           estado:"POR CONFIRMAR"
         }
+        console.log("Reserva");
+        console.log(reserva);
         $http.post('/api/reservas', reserva)
-        .success(funcion(reserva){
+        .success(function(reserva){
+          console.log("Lo logra");
           self.listar();
         })
         .error(function(err){

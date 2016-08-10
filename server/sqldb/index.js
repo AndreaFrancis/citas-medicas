@@ -10,7 +10,7 @@ import Sequelize from 'sequelize';
 
 var db = {
   Sequelize,
-  sequelize: new Sequelize(config.sequelize.uri,{timezone: '-04:30'})
+  sequelize: new Sequelize(config.sequelize.uri,{timezone:'-04:00'})
 };
 
 // Insert models below

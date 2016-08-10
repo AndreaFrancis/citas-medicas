@@ -15,6 +15,7 @@ import {Horario} from '../../sqldb';
 import {Persona} from '../../sqldb';
 import {Medico} from '../../sqldb';
 import {Especialidad} from '../../sqldb';
+
 function respondWithResult(res, statusCode) {
   statusCode = statusCode || 200;
   return function(entity) {
@@ -63,6 +64,7 @@ function handleError(res, statusCode) {
 
 // Gets a list of Reservas
 export function index(req, res) {
+  console.log("POSIBLE ERROR EN INDEX");
   return Reserva.findAll()
     .then(respondWithResult(res))
     .catch(handleError(res));
@@ -70,15 +72,8 @@ export function index(req, res) {
 
 // Gets a single Reserva from the DB
 export function show(req, res) {
-  /*return Reserva.find({
-    where: {
-      _id: req.params.id
-    }
-  })
-    .then(handleEntityNotFound(res))
-    .then(respondWithResult(res))
-    .catch(handleError(res));*/
-  return Reserva.findAll({
+    console.log("POSIBLE EN SHOW");
+    return Reserva.findAll({
     where: {
       fk_asegurado: req.params.id
     },
@@ -107,34 +102,62 @@ export function show(req, res) {
       .catch(handleError(res));
 }
 
-// Creates a new Reserva in the DB
-//TODO - DESCONTAR NRO DE FICHAS
+
+
 export function create(req, res) {
+  console.log("CREAR RESERVA");
   return Reserva.create(req.body)
-    .then(function(res) {
+    .then(function(entity){
       Horario.find({
-        where: {
-        _id: req.params.fk_horario
-      }
-    })
-    .then(handleEntityNotFound(res))
-    .then(
-      function(entity) {
-        if (entity) {
-          var fichas = entity.fichas_actual;
-          fichas--;
-          entity.fechas_actual = fichas;
-          return entity.updateAttributes(['fichas_actual'])
-          .then(updated => {
-            return updated;
-          });
+        where:{
+          _id:entity.fk_horario
         }
-      }
-    )
-    .catch(handleError(res))
+      })
+      .then(function(horario){
+          if (horario) {
+            var fichas = horario.fichas_actual;
+            fichas--;
+            horario.fechas_actual = fichas;
+            horario.updateAttributes(['fichas_actual'])
+            //res.status(statusCode).json({});
+          }
+          res.send(horario).end();
+      })
+      .catch(function(errorHorario){
+        console.log("ERROR horario =",errorHorario);
+        res.status(500).send(errorHorario);
+      })
     })
-    .catch(handleError(res));
+    .catch(function(err){
+      console.log("ERROR reserva =",err);
+        res.status(500).send(err);
+    });
 }
+
+
+
+
+/*
+function(reserva){
+  Horario.find({
+    where:{
+      _id:reserva.fk_horario
+    }
+  })
+  .then(handleEntityNotFound(res))
+  .then(function(entity) {
+    if (entity) {
+      var fichas = entity.fichas_actual;
+      fichas--;
+      entity.fechas_actual = fichas;
+      entity.updateAttributes(['fichas_actual'])
+      res.status(statusCode).json({});
+    }
+  }
+  )
+  .catch(handleError(res));
+}
+*/
 
 // Updates an existing Reserva in the DB
 export function update(req, res) {
