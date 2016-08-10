@@ -25,7 +25,7 @@
             <td>{{res.Horario.Especialidad.nombre}}</td>
             <td>{{vm.obtenerDia(res.Horario.fecha)}}</td>
             <td>{{res.nro}}</td>
-            <td></td>
+            <td>{{vm.obtenerHora(res.Horario.hora_inicio,res.nro,res.Horario.minutos)}}</td>
             <td>{{res.estado}}</td>
             <td>{{res.Horario.consultorio}}</td>
             <td>{{res.Horario.minutos}}</td>

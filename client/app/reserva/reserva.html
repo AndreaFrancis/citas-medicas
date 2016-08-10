@@ -30,7 +30,7 @@
                 <tbody>
                   <tr ng-repeat="n in h.Reservas">
                     <th>{{n.nro}}</th>
-                    <td></td>
+                    <td>{{vm.obtenerHora(h.hora_inicio,n.nro,h.minutos)}}</td>
                     <td>{{n.estado}}</td>
                     <td ng-show="n.estado =='OCUPADO'"></td>
                     <td>

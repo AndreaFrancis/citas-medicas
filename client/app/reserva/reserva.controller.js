@@ -15,14 +15,11 @@ class ReservaComponent {
 
     if(!this.esRecepcionista) {
       var usuarioId = $rootScope.globals.currentUser.id;
-      console.log("Usuario: ",usuarioId);
       this.$http.get('/api/usuarios/'+usuarioId)
           .then(response => {
             var personaId = response.data.Persona._id;
-            console.log("Persona: ",personaId);
             this.$http.get('/api/asegurados/'+personaId)
                 .then(response => {
-                  console.log("Asegurado: ",response);
                   this.asegurado = response.data;
                 });
           });
@@ -38,11 +35,9 @@ class ReservaComponent {
                 var objetos = [];
                 for (var i=1; i<=response.data[e].Medicos[m].Horarios[h].fichas;i++) {
                   var estado = "DISPONIBLE";
-                  console.log("Ficha ",i);
                   for (var j=0; j<response.data[e].Medicos[m].Horarios[h].Reservas.length;j++) {
                     var reserva = response.data[e].Medicos[m].Horarios[h].Reservas[j];
                     if(reserva.nro == i){
-                      console.log("OCUPADO");
                       estado = "OCUPADO";
                     }
                   }
@@ -67,6 +62,13 @@ class ReservaComponent {
   	this.$http.delete('/api/horarios/'+horario._id);
   }
 
+  obtenerHora(hora, n, minutos){
+    var date = new Date(hora);
+    var minutes = n*minutos;
+    var newdate = new Date(date.getTime() + minutes*60000);
+    return newdate.toLocaleTimeString();
+  }
+
   seleccionarMedico(medico) {
   	this.medico = medico;
   }
@@ -80,15 +82,12 @@ class ReservaComponent {
         var matricula = this.matricula.trim();
         this.$http.get('/api/asegurados/'+matricula)
         .then(response => {
-          console.log(response);
           this.asegurado = response.data;
         });
     }
   }
 
   reservar() {
-    console.log("OJO");
-    console.log(this);
     if(this.asegurado._id != null) {
       var reserva = {
         fk_horario : this.horario._id,
@@ -121,12 +120,6 @@ class ReservaComponent {
       }
     });
     modalInstance.result.then(function (selectedItem) {
-      console.log("Asegurado");
-      console.log(asegurado);
-      console.log("Horario");
-      console.log(horario);
-      console.log("Numero");
-      console.log(nro);
       if(asegurado._id != null) {
         var reserva = {
           fk_horario: horario._id,
@@ -135,11 +128,8 @@ class ReservaComponent {
           fk_asegurado:asegurado._id,
           estado:"POR CONFIRMAR"
         }
-        console.log("Reserva");
-        console.log(reserva);
         $http.post('/api/reservas', reserva)
         .success(function(reserva){
-          console.log("Lo logra");
           self.listar();
         })
         .error(function(err){
@@ -156,7 +146,6 @@ class ReservaComponent {
 
   obtenerObjetosReservaPorHorario(horario){
     var objetos = [];
-    console.log("Devolviendo para ", horario.fichas);
     return objetos;
   }
 

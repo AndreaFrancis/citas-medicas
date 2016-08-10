@@ -12,6 +12,13 @@ class MisReservasComponent {
     this.dias = ["Domingo","Lunes", "Martes", "Miercoles", "Jueves", "Viernes", "Sabado"];
   }
 
+  obtenerHora(hora, n, minutos){
+    var date = new Date(hora);
+    var minutes = n*minutos;
+    var newdate = new Date(date.getTime() + minutes*60000);
+    return newdate.toLocaleTimeString();
+  }
+  
   obtenerDia(fecha){
     var date = new Date(fecha);
     return this.dias[date.getDay()] + " "+date.toLocaleDateString();
