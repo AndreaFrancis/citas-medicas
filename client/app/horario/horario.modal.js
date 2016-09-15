@@ -16,9 +16,13 @@ function HorarioCtrl($uibModalInstance, $http) {
       .then(response => {
         this.medicos = response.data;
       });
-
+  this.diasSeleccionados = [];
+  this.oneDaySelectionOnly = function(event,data){
+            this.diasSeleccionados.push(data);
+  }
   this.ok = function() {
-    this.$uibModalInstance.close({estado:'guardar', medico:this.medico, horario:this.horario, especialidad:this.especialidad});
+    console.log("OJO DE UVA:"+this.diasSeleccionados);
+    this.$uibModalInstance.close({estado:'guardar', medico:this.medico, horario:this.horario, especialidad:this.especialidad,fechas:this.diasSeleccionados});
   }
 
   this.eliminar = function() {

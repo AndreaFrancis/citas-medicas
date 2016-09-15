@@ -3,6 +3,7 @@
 //Clave asegurado 810506GCJ
 class ReservaComponent {
   constructor($http,$uibModal, $rootScope, ROLES) {
+    this.error = false;
   	this.$http = $http;
     this.$uibModal = $uibModal;
     this.especialidades = [];
@@ -83,6 +84,9 @@ class ReservaComponent {
         this.$http.get('/api/asegurados/mat/'+matricula)
         .then(response => {
           this.asegurado = response.data;
+          this.error = false;
+        }, error => {
+          this.error = true;
         });
     }
   }

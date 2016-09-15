@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('cosmilApp', ['cosmilApp.constants', 'ngCookies', 'ngResource', 'ngSanitize',
-    'ui.router', 'ui.bootstrap'
+    'ui.router', 'ui.bootstrap','multipleDatePicker'
   ])
   .config(function($urlRouterProvider, $locationProvider) {
     $urlRouterProvider.otherwise('/');

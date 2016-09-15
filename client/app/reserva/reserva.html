@@ -14,6 +14,7 @@
         <button type="button" class="btn btn-info" ng-click="vm.login()">Buscar</button>
         {{vm.asegurado.Persona.nombres}} {{vm.asegurado.Persona.apaterno}} {{vm.asegurado.Persona.amaterno}}
       </div>
+      <div class="alert alert-danger" role="alert" ng-show="vm.error">No se encontró la matricula</div>
       <div class="col-md-3">
       </div>
     </div>
