@@ -1,40 +1,3 @@
-<!--div class="container">
-    <h3 class="page-header">Nuevo asegurado:</h3>
-    <div class="content">
-      <div class="row">
-        <form role="form" >
-          <div class="col-md-12">
-            <div class="form-group col-md-6">
-              <label for="grado">Grado </label>
-              <input type="text" class="form-control" id="grado" ng-model="vm.asegurado.grado"
-                     placeholder="Grado">
-            </div>
-            <div class="col-md-6">
-              <label for="fuerza">Fuerza </label>
-              <input type="text" class="form-control" id="fuerza" ng-model="vm.asegurado.fuerza"
-                     placeholder="Fuerza">
-            </div>
-          </div>
-          <div class="col-md-12">
-            <div class="form-group col-md-6">
-              <label for="tipo_asegurado">Tipo asegurado </label>
-              <input type="text" class="form-control" id="tipo_asegurado" ng-model="vm.asegurado.tipo_asegurado"
-                     placeholder="Tipo asegurado">
-            </div>
-            <div class="col-md-6">
-              <label for="matrcula">Matricula </label>
-              <input type="text" class="form-control" id="matrcula" ng-model="vm.asegurado.matrcula"
-                     placeholder="Matricula">
-            </div>
-          </div>
-          <div class="col-md-12">
-              <button type="submit" class="btn btn-info pull-right" ng-click="vm.guardar()">Guardar</button>
-          </div>
-        </form>
-      </div>
-    </div>
-</div-->
-
 <div class="container">
   <div class="row">
     <div class="col-lg-12">
@@ -43,6 +6,11 @@
           <span class="glyphicon glyphicon-add" aria-hidden="true"></span>Nuevo
         </button>
       </h3>
+      <div class="form-group col-md-12">
+        <label for="matricula">Buscar:</label>
+        <input type="text" class="form-control" id="matricula" ng-model="vm.busqueda"
+           placeholder="Asegurado">
+      </div>
       <table class="table">
         <thead>
           <tr>
@@ -59,7 +27,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr ng-repeat="as in vm.asegurados">
+          <tr ng-repeat="as in vm.asegurados|filter: vm.busqueda">
             <th>{{$index+1}}</th>
             <td>{{as.Persona.nombres}}</td>
             <td>{{as.Persona.apaterno}}</td>

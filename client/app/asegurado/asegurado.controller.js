@@ -1,8 +1,10 @@
 'use strict';
+
 (function(){
 
 class AseguradoComponent {
   constructor($http, $uibModal) {
+    this.busqueda = '';
   	this.$http = $http;
     this.$uibModal = $uibModal;
     this.asegurado = {};
@@ -11,6 +13,15 @@ class AseguradoComponent {
 
   $onInit() {
       this.listar();
+  }
+
+  filterFunction(element,busqueda) {
+    console.log(busqueda);
+    console.log(element);
+    if(busqueda == '') {
+      return true;
+    }
+    return element.Persona.nombres.contains(busqueda) ? true : false;
   }
 
   guardar() {

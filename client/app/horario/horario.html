@@ -6,7 +6,11 @@
           <span class="glyphicon glyphicon-add" aria-hidden="true"></span>Nuevo
         </button>
       </h3>
-
+      <div class="form-group col-md-12">
+        <label for="matricula">Buscar:</label>
+        <input type="text" class="form-control" id="matricula" ng-model="vm.busqueda"
+           placeholder="Especialidad">
+      </div>
       <table class="table">
         <thead>
           <tr>
@@ -23,7 +27,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr ng-repeat="hor in vm.horarios">
+          <tr ng-repeat="hor in vm.horarios|filter: vm.busqueda"">
             <th>{{$index+1}}</th>
             <td>{{hor.Medico.Persona.nombres}} {{hor.Medico.Persona.apaterno}} {{hor.Medico.Persona.amaterno}}</td>
             <td>{{hor.Especialidad.nombre}}</td>

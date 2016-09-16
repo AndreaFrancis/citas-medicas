@@ -6,6 +6,11 @@
           <span class="glyphicon glyphicon-add" aria-hidden="true"></span>Nuevo
         </button>
       </h3>
+      <div class="form-group col-md-12">
+        <label for="matricula">Buscar:</label>
+        <input type="text" class="form-control" id="matricula" ng-model="vm.busqueda"
+           placeholder="Especialidad">
+      </div>
       <table class="table">
         <thead>
           <tr>
@@ -15,7 +20,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr ng-repeat="esp in vm.especialidades">
+          <tr ng-repeat="esp in vm.especialidades|filter: vm.busqueda">
             <th>{{$index+1}}</th>
             <td>{{esp.nombre}}</td>
             <td>
