@@ -13,6 +13,12 @@ class MedicoComponent {
       this.listar();
   }
 
+
+  obtenerDia(fecha){
+    var date = new Date(fecha);
+    return date.toLocaleDateString();
+  }
+
   eliminar(medico){
     var self = this;
     var modalInstance = this.$uibModal.open({

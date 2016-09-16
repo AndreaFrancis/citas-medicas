@@ -12,6 +12,8 @@ class PersonaComponent {
       this.listar();
   }
 
+  
+
   guardar() {
   	console.log(this.persona);
     this.$http.post('/api/personas', {
