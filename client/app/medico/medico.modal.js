@@ -10,7 +10,15 @@ function MedicoCtrl($uibModalInstance, $http) {
         console.log("OJO");
         console.log(this.especialidades);
       });
-
+      this.opened = false;
+      this.dateOptions = {
+        dateDisabled: false,
+        formatYear: 'yyyy',
+        startingDay: 1
+      };
+  this.abrirPopup = function(){
+        this.opened=true
+  }
 
   this.ok = function() {
     this.$uibModalInstance.close({estado:'guardar', medico:this.medico, persona:this.persona, especialidad:this.especialidad});

@@ -2,6 +2,12 @@ function UsuarioCtrl($uibModalInstance) {
   	this.$uibModalInstance = $uibModalInstance;
     this.persona = {};
     this.usuario = {};
+    this.opened = false;
+    this.dateOptions = {
+      dateDisabled: false,
+      formatYear: 'yyyy',
+      startingDay: 1
+    };
 
 
   this.ok = function() {
@@ -16,6 +22,9 @@ function UsuarioCtrl($uibModalInstance) {
     this.$uibModalInstance.dismiss('cancelar');
   }
 
+  this.abrirPopup = function(){
+    this.opened=true
+  }
 }
 
 angular.module('cosmilApp')

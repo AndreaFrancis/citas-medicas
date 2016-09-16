@@ -13,7 +13,13 @@ class ReservaComponent {
     this.nro = 0;
     this.horario = {};
     this.esRecepcionista = $rootScope.globals.currentUser.rol == ROLES.RECEP;
-
+    this.medicos = [];
+    this.horarios = [];
+    this.fichas = [];
+    this.verEspecialidades = true;
+    this.verMedicos = false;
+    this.verHorario = false;
+    this.verFichas = false;
     if(!this.esRecepcionista) {
       var usuarioId = $rootScope.globals.currentUser.id;
       this.$http.get('/api/usuarios/'+usuarioId)
@@ -27,6 +33,56 @@ class ReservaComponent {
     }
   }
 
+  mostrarMedicos(especialidad){
+    console.log("Cambiando");
+    this.medicos = especialidad.Medicos;
+    console.log(this.medicos);
+    this.verEspecialidades = false;
+    this.verMedicos = true;
+    this.e = especialidad;
+  }
+
+  mostrarHorarios(medico){
+    console.log("Cambiando");
+    this.horarios = medico.Horarios;
+    console.log(this.horarios);
+    this.verMedicos = false;
+    this.verHorarios = true;
+    this.m = medico;
+  }
+
+  mostrarFichas(horario){
+    console.log("Cambiando");
+    this.fichas = horario.Reservas;
+    console.log(this.fichas);
+    this.verHorarios = false;
+    this.verFichas = true;
+    this.h = horario
+  }
+  mostrarReservar(ficha){
+    console.log("Cambiando");
+    this.n = ficha;
+    console.log(this.n);
+    this.verFichas = false;
+    this.verReseva = true;
+  }
+
+  volverEspecialidades() {
+    this.verMedicos = false;
+    this.verEspecialidades = true;
+  }
+  volverMedicos(){
+    this.verMedicos = true;
+    this.verHorarios = false;
+  }
+  volverHorarios(){
+    this.verHorarios = true;
+    this.verFichas = false;
+  }
+  volverFichas(){
+    this.verFichas = true;
+    this.verReseva = false;
+  }
   listar(){
     this.$http.get('/api/especialidades/semana')
         .then(response => {
@@ -78,6 +134,7 @@ class ReservaComponent {
   	this.especialidad = especialidad;
   }
 
+
   login() {
     if(this.matricula != null && this.matricula.trim() != '') {
         var matricula = this.matricula.trim();
@@ -101,6 +158,7 @@ class ReservaComponent {
       }
       this.$http.post('/api/reservas', reserva);
       this.listar();
+
     } else {
       alert("Debe ingresar su matricula para realizar una reserva");
     }
@@ -135,6 +193,11 @@ class ReservaComponent {
         $http.post('/api/reservas', reserva)
         .success(function(reserva){
           self.listar();
+          self.verReseva = false;
+          self.verFichas = false;
+          self.verHorarios = false;
+          self.verMedicos = false;
+          self.verEspecialidades = true;
         })
         .error(function(err){
           alert("No se pudo guardar la reserva, intentelo mas tarde");

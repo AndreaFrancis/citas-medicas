@@ -82,13 +82,19 @@
                     <div class="col-md-12">
                       <div class="form-group col-md-4">
                         <label for="genero">Genero </label>
-                        <input type="text" class="form-control" id="genero" ng-model="vm.persona.genero" required="true"
-                               placeholder="Genero">
+                        <select class="form-control" ng-model="vm.persona.genero" value="MASCULINO">
+                          <option value="MASCULINO" selected="selected">MASCULINO</option>
+                          <option value="FEMENINO">FEMENINO</option>
+                        </select>
                       </div>
                       <div class="form-group col-md-4">
                         <label for="fechanac">Fecha Nac. </label>
-                        <input type="text" class="form-control" id="fechanac" ng-model="vm.persona.fecha_nacimineto"
-                               placeholder="AA-MM-DD">
+                        <p class="input-group">
+                          <input type="text" class="form-control" uib-datepicker-popup="yyyy-MM-dd" ng-model="vm.persona.fecha_nacimineto" is-open="vm.opened" datepicker-options="vm.dateOptions" ng-required="true" close-text="Close"/>
+                          <span class="input-group-btn">
+                            <button type="button" class="btn btn-default" ng-click="vm.abrirPopup()"><i class="glyphicon glyphicon-calendar"></i></button>
+                          </span>
+                        </p>
                       </div>
                       <div class="col-md-4">
                         <label for="matrcula">Matricula </label>

@@ -14,6 +14,11 @@ class UsuarioComponent {
       this.listar();
   }
 
+  obtenerDia(fecha){
+    var date = new Date(fecha);
+    return date.toLocaleDateString();
+  }
+
   eliminar(usuario){
     var self = this;
     var modalInstance = this.$uibModal.open({

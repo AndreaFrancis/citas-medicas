@@ -2,12 +2,13 @@
 (function(){
 
 class ObservacionComponent {
-  constructor($http, $uibModal) {
+  constructor($http, $uibModal, $rootScope, ROLES) {
   	this.$http = $http;
     this.$uibModal = $uibModal;
     this.observacion = {};
     this.observaciones = [];
     this.dias = ["Domingo","Lunes", "Martes", "Miercoles", "Jueves", "Viernes", "Sabado"];
+    this.esAdmin = $rootScope.globals.currentUser.rol == ROLES.ADMIN;
   }
 
   obtenerDia(fecha){

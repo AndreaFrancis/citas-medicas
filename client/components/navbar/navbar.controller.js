@@ -35,7 +35,7 @@ class NavbarController {
         },
         {
         state:'observacion',
-        title: 'Observaciones',
+        title: 'Informaciones',
         permitido: this.usuario.rol == this.ROLES.ADMIN
         },
         {

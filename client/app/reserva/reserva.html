@@ -24,18 +24,72 @@
 </div>
 <div class="container">
   <div class="row">
-    <div class="col-md-2">
+    <div class="col-md-3">
     </div>
     <div class="col-md-8">
 
-<uib-accordion close-others="oneAtATime">
+    <div ng-show="vm.verEspecialidades">
+      <h3 class="page-header">Especialidades</h3>
+      <div ng-repeat="e in vm.especialidades">
+          <a class="btn btn-info btn-lg-a" href="#" role="button" ng-click="vm.mostrarMedicos(e)">{{e.nombre}}</a></p>
+        <br>
+      </div>
+    </div>
+    <div ng-show="vm.verMedicos">
+       <h3 class="page-header">Médicos</h3>
+      <div ng-repeat="m in vm.medicos">
+          <a class="btn btn-info btn-lg-a" href="#" role="button" ng-click="vm.mostrarHorarios(m)">{{m.Persona.nombres}} {{m.Persona.apaterno}} {{m.Persona.amaterno}}</a></p>
+        <br>
+      </div>
+      <a href="#" class="btn btn-danger" role="button" ng-click="vm.volverEspecialidades()"><< Volver</a>
+    </div>
+    <div ng-show="vm.verHorarios">
+      <h3 class="page-header">Horarios</h3>
+      <div ng-repeat="h in vm.horarios">
+          <a class="btn btn-info btn-lg-a" href="#" role="button" ng-click="vm.mostrarFichas(h)">{{vm.obtenerDia(h.fecha)}}</a></p>
+        <br>
+      </div>
+      <a href="#" class="btn btn-danger" role="button" ng-click="vm.volverMedicos()"><< Volver</a>
+    </div>
+
+    <div ng-show="vm.verFichas">
+      <h3 class="page-header">Fichas</h3>
+      <div ng-repeat="n in vm.fichas">
+          <a class="btn btn-danger btn-lg-a" ng-show="n.estado =='OCUPADO'" href="#" role="button">
+            {{n.nro}} >> {{vm.obtenerHora(vm.h.hora_inicio,n.nro,vm.h.minutos)}}
+          </a></p>
+          <a class="btn btn-info btn-lg-a" ng-show="n.estado =='DISPONIBLE'" href="#" role="button" ng-click="vm.mostrarReservar(n)">
+            {{n.nro}} >> {{vm.obtenerHora(vm.h.hora_inicio,n.nro,vm.h.minutos)}}
+          </a></p>
+        <br>
+      </div>
+      <a href="#" class="btn btn-danger" role="button" ng-click="vm.volverHorarios()"><< Volver</a>
+    </div>
+
+    <div ng-show="vm.verReseva">
+      <h3 class="page-header">Reserva</h3>
+      <b>Nro. Ficha: </b>
+      <p>{{vm.n.nro}}</p>
+      <b>Hora inicio:</b>
+      <p>{{vm.obtenerHora(vm.h.hora_inicio,vm.n.nro,vm.h.minutos)}}</p>
+      <b>Consultorio</b>
+      <p>{{vm.h.consultorio}}</p>
+      <b>Médico</b>
+      <p>{{vm.m.Persona.nombres}} {{vm.m.Persona.apaterno}} {{vm.m.Persona.amaterno}}</p>
+      <b>Especialidad</b>
+      <p>{{vm.e.nombre}}</p>
+      <a class="btn btn-success btn-lg" href="#" role="button" ng-click="vm.open(vm.n.nro,vm.h)">
+        Reservar
+      </a></p>
+      <a href="#" class="btn btn-danger" role="button" ng-click="vm.volverFichas()"><< Volver</a>
+    </div>
+<!--uib-accordion close-others="oneAtATime">
     <uib-accordion-group ng-repeat="e in vm.especialidades" heading="{{e.nombre}}" is-open="statusEsp" is-disabled="isFirstDisabled">
-      <!--uib-accordion close-others="oneAtATime">
+      <uib-accordion close-others="oneAtATime">
         <uib-accordion-group ng-repeat="m in e.Medicos" heading="{{m.Persona.nombres}} {{m.Persona.apaterno}} {{m.Persona.amaterno}}" is-open="statusMed" is-disabled="isFirstDisabled">
           <ul>
             <li ng-repeat="h in m.Horarios">
               {{vm.obtenerDia(h.fecha)}}
-
               <table class="table">
                 <thead>
                   <tr>
@@ -60,9 +114,9 @@
             </li>
           </ul>
         </uib-accordion-group>
-      </uib-accordion-->
+      </uib-accordion>
     </uib-accordion-group>
-  </uib-accordion>
+  </uib-accordion-->
 </div>
 <div class="col-md-2">
 </div>
