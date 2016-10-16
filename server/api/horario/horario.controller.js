@@ -74,12 +74,18 @@ export function index(req, res) {
 
 // Gets a list of Horarios
 export function hoy(req, res) {
+  var fechaExtraida = new Date(req.params.id);
+  if(req.params.id == 0){
+      fechaExtraida = new Date();
+  }
   return Horario.findAll(
     {
       where:{
         fecha: {
-          $lt: new Date(),
-          $gt: new Date(new Date() - 24 * 60 * 60 * 1000)
+          $lt: fechaExtraida,
+          $gt: new Date(fechaExtraida - 24 * 60 * 60 * 1000)
+          //$lt: new Date(),
+          //$gt: new Date(new Date() - 24 * 60 * 60 * 1000)
         }
       },
       include:[{model:Reserva, as:'Reservas',include:[

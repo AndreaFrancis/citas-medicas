@@ -1,16 +1,39 @@
 <div class="container">
   <div class="row">
     <div class="col-lg-12">
-      <h3 class="page-header">Reservas confirmadas de hoy {{vm.obtenerDia(vm.hoy)}}
+      <h3 class="page-header">Reservas confirmadas
       </h3>
+      <div class="form-group col-md-12">
+        <div class="col-md-4">
+        </div>
+        <div class="col-md-4">
+          <label for="matricula">Ingrese la fecha a revisar: </label>
+          <p class="input-group">
+            <input type="text" class="form-control" uib-datepicker-popup="yyyy-MM-dd" ng-model="vm.fecha" is-open="vm.opened" datepicker-options="vm.dateOptions" ng-required="true" close-text="Close" ng-change="vm.buscar()"/>
+            <span class="input-group-btn">
+              <button type="button" class="btn btn-default" ng-click="vm.abrirPopup()"><i class="glyphicon glyphicon-calendar"></i></button>
+            </span>
+          </p>
+        </div>
+        <div class="col-md-4">
+        </div>
+      </div>
       <table class="table" ng-repeat="h in vm.horarios">
         <caption>
-          <b>Medico : </b>
-          {{h.Medico.Persona.nombres}} {{h.Medico.Persona.apaterno}} {{h.Medico.Persona.amaterno}}
-          <b>Especialidad</b>
-          {{h.Especialidad.nombre}}
-          <b>Consultorio</b>
-          {{h.consultorio}}
+          <div class="well well-lg-a">
+            <div class="form-group col-md-12">
+              <label for="nombre">Medico: </label>
+              {{h.Medico.Persona.nombres}} {{h.Medico.Persona.apaterno}} {{h.Medico.Persona.amaterno}}
+            </div>
+            <div class="form-group col-md-12">
+              <label for="nombre">Especialidad: </label>
+              {{h.Especialidad.nombre}}
+            </div>
+            <div class="form-group col-md-12">
+              <label for="nombre">Consultorio: </label>
+              {{h.consultorio}}
+            </div>
+          </div>
         </caption>
         <thead>
           <tr>
@@ -19,18 +42,28 @@
             <th>Nro</th>
             <th>Matricula</th>
             <th>Asegurado</th>
+            <th>Estado</th>
           </tr>
         </thead>
         <tbody>
-          <tr ng-repeat="res in h.Reservas" ng-if="res.estado == 'CONFIRMADA'">
+          <!--tr ng-repeat="res in h.Reservas" ng-if="res.estado == 'CONFIRMADA'"-->
+          <tr ng-repeat="res in h.Reservas| orderBy:'estado'">
             <th>{{$index+1}}</th>
             <td>{{vm.obtenerHora(h.hora_inicio,res.nro,h.minutos)}}</td>
             <td>{{res.nro}}</td>
             <td>{{res.Asegurado.matricula}}</td>
             <td>{{res.Asegurado.Persona.nombres}} {{res.Asegurado.Persona.apaterno}} {{res.Asegurado.Persona.amaterno}}</td>
+            <td>{{res.estado}}</td>
           </tr>
          <tbody>
+         <p class="bg-warning" ng-show="h.Reservas.lenth==0">No se cofirmaron reservas</p>
       </table>
     </div>
   </div>
+  <h3 class="page-header">Porcentaje de fichas reservadas por doctor
+  </h3>
+  <nvd3 options="vm.options" data="vm.data"></nvd3>
+  <h3 class="page-header">Numero de fichas confirmadas y no confirmadas por doctor
+  </h3>
+  <nvd3 options="vm.options2" data="vm.data2"></nvd3>
 </div>
