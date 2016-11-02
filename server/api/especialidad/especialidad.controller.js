@@ -16,6 +16,8 @@ import {Medico} from '../../sqldb';
 import {Reserva} from '../../sqldb';
 import {Asegurado} from '../../sqldb';
 import {Persona} from '../../sqldb';
+import {Emergencia} from '../../sqldb';
+import {Observacion} from '../../sqldb';
 
 
 function respondWithResult(res, statusCode) {
@@ -69,13 +71,9 @@ function handleError(res, statusCode) {
 export function indexSemana(req, res) {
   var maniana = new Date();
   var semana = new Date();
-  //maniana.setDate(maniana.getDate() + 1);
   semana.setDate(semana.getDate() + 8);
-  console.log("MANANA>",maniana, " SEMANA>",semana);
   return Especialidad.findAll(
     {
-      //-include:[{model: Horario, as: 'Horarios', include:[{model: Medico, as: 'Medico'}, {model:Reserva, as:'Reservas', include:[{model:Asegurado, as:'Asegurado'}]}]}]
-      //--include:[{model:Medico, as:'Medicos',include:[{model:Horario, as:'Horarios', where:{$or:[{fecha:{$gte:maniana}},{fecha:{$lte:semana}}]}}]}]
       include:[
         {
           model:Medico,
@@ -84,6 +82,14 @@ export function indexSemana(req, res) {
             {
               model:Persona,
               as:'Persona'
+            },
+            {
+              model:Emergencia,
+              as:'Emergencias'
+            },
+            {
+              model:Observacion,
+              as:'Observaciones'
             },
             {
               model:Horario,

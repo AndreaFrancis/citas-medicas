@@ -17,7 +17,7 @@ module.exports = {
     sequelize: {
       //Cadena para correr localmente
       //uri: 'mysql://root:root@localhost:3306/cosmil'
-      uri: 'mysql://root:root@173.194.242.46:3306/cossmil'
+      uri: 'mysql://root:root@173.194.106.24:3306/cossmil'
       //Cadena para conectar con la nube
       //uri: 'mysql://root:root@:173.194.242.46:3306/cossmil'
     },

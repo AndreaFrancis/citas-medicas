@@ -84,8 +84,6 @@ export function hoy(req, res) {
         fecha: {
           $lt: fechaExtraida,
           $gt: new Date(fechaExtraida - 24 * 60 * 60 * 1000)
-          //$lt: new Date(),
-          //$gt: new Date(new Date() - 24 * 60 * 60 * 1000)
         }
       },
       include:[{model:Reserva, as:'Reservas',include:[
@@ -100,11 +98,37 @@ export function hoy(req, res) {
           ]
         }
       ]},
-                {model:Medico, as:'Medico',include:[{model:Persona, as:'Persona'}]},
+                {model:Medico, as:'Medico',include:[
+                  {model:Persona, as:'Persona'}
+                ]},
                                   {model:Especialidad, as:'Especialidad'}]})
     .then(respondWithResult(res))
     .catch(handleError(res));
 }
+
+// Gets horarios con mismo consultorio y hora inicio y fin
+export function consultorio(req, res) {
+  var consultorio = req.params.cons;
+  console.log("---------------"+req.params.fecha);
+  var fechaExtraida = new Date(req.params.fecha);
+  var fechaposterior = new Date(req.params.fecha);
+  fechaposterior.setDate(fechaposterior.getDate() + 1);
+  console.log("FECHA "+fechaExtraida);
+  console.log("FECHA POSTERIOR"+ fechaposterior);
+  return Horario.findAll(
+    {
+      where:{
+        fecha: {
+          $gte: fechaExtraida,
+          $lte: fechaposterior
+        },
+        consultorio :  consultorio
+      }})
+    .then(respondWithResult(res))
+    .catch(handleError(res));
+}
+
+
 
 // Gets a single Horario from the DB
 export function show(req, res) {

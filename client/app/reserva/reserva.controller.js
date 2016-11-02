@@ -34,7 +34,6 @@ class ReservaComponent {
   }
 
   mostrarMedicos(especialidad){
-    console.log("Cambiando");
     this.medicos = especialidad.Medicos;
     console.log(this.medicos);
     this.verEspecialidades = false;
@@ -43,7 +42,6 @@ class ReservaComponent {
   }
 
   mostrarHorarios(medico){
-    console.log("Cambiando");
     this.horarios = medico.Horarios;
     console.log(this.horarios);
     this.verMedicos = false;
@@ -52,7 +50,6 @@ class ReservaComponent {
   }
 
   mostrarFichas(horario){
-    console.log("Cambiando");
     this.fichas = horario.Reservas;
     console.log(this.fichas);
     this.verHorarios = false;
@@ -86,24 +83,54 @@ class ReservaComponent {
   listar(){
     this.$http.get('/api/especialidades/semana')
         .then(response => {
+          console.log(response.data);
           for(var e=0; e<response.data.length;e++){
             for(var m=0; m<response.data[e].Medicos.length; m++){
               for(var h=0;h<response.data[e].Medicos[m].Horarios.length;h++){
                 var objetos = [];
-                for (var i=1; i<=response.data[e].Medicos[m].Horarios[h].fichas;i++) {
-                  var estado = "DISPONIBLE";
-                  for (var j=0; j<response.data[e].Medicos[m].Horarios[h].Reservas.length;j++) {
-                    var reserva = response.data[e].Medicos[m].Horarios[h].Reservas[j];
-                    if(reserva.nro == i){
-                      estado = "OCUPADO";
-                    }
-                  }
-                  objetos.push({estado:estado,nro:i});
+                var fecha = new Date(response.data[e].Medicos[m].Horarios[h].fecha);
+                var estaEmergencia = false;
+                var ind =  0;
+                while(ind<response.data[e].Medicos[m].Emergencias.length && !estaEmergencia){
+                  var fechacomp = new Date(response.data[e].Medicos[m].Emergencias[ind].fecha);
+                  estaEmergencia = fecha.getTime() ==  fechacomp.getTime();
+                  console.log("EMERGENCIA "+estaEmergencia+" - "+fecha+" - "+fechacomp);
+                  ind++;
                 }
-                response.data[e].Medicos[m].Horarios[h].Reservas = objetos;
+
+                var estaOcupado = false;
+                ind = 0;
+                console.log("ojo");
+                while(ind<response.data[e].Medicos[m].Observaciones.length && !estaOcupado) {
+                  var fecha_inicio = new Date(response.data[e].Medicos[m].Observaciones[ind].fecha_inicio);
+                  var fecha_fin = new Date(response.data[e].Medicos[m].Observaciones[ind].fecha_fin);
+                  estaOcupado = fecha>=fecha_inicio && fecha<=fecha_fin;
+                  console.log("HORARIO "+estaOcupado+" - "+fecha+" - "+fecha_inicio+" - "+fecha_fin);
+                  ind++;
+                }
+
+                if (!estaEmergencia &&  !estaOcupado){
+                  for (var i=1; i<=response.data[e].Medicos[m].Horarios[h].fichas;i++) {
+                    var estado = "DISPONIBLE";
+                    for (var j=0; j<response.data[e].Medicos[m].Horarios[h].Reservas.length;j++) {
+                      var reserva = response.data[e].Medicos[m].Horarios[h].Reservas[j];
+                      if(reserva.nro == i){
+                        estado = "OCUPADO";
+                      }
+                    }
+                    objetos.push({estado:estado,nro:i});
+                  }
+                  response.data[e].Medicos[m].Horarios[h].Reservas = objetos;
+                  response.data[e].Medicos[m].Horarios[h].estado = "DISPONIBLE";
+                } else {
+                  var detalle = estaEmergencia? "EMERGENCIA":"PERMISO";
+                  response.data[e].Medicos[m].Horarios[h].estado = detalle;
+                }
               }
             }
           }
+          console.log("===================AL FINAL");
+          console.log(response.data);
           this.especialidades = response.data;
         });
   }

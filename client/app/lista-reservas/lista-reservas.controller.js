@@ -30,8 +30,22 @@ class ListaReservasComponent {
     }
   }
 
+/*
+CREATE DEFINER=`root`@`%` TRIGGER `cossmil`.`update_reserva` AFTER UPDATE
+    ON cossmil.Reservas FOR EACH ROW
+BEGIN
+  UPDATE sanson.reserva
+    SET id_reserva = NEW._id,
+      id_horario = NEW.fk_horario,
+      id_asegurado = NEW.fk_asegurado,
+      nro = NEW.nro,
+      confirmada = estado,
+      fecha_confirmada = NEW.fecha_confirmada,
+      hora = time(NEW.fecha_confirmada);
+END*/
   confirmar(reserva){
     reserva.estado="CONFIRMADA";
+    reserva.fecha_confirmada = new Date();
     this.$http.put('/api/reservas/'+ reserva._id,reserva)
     .success(function(reserva){
       alert("Se confirmo la reserva");
