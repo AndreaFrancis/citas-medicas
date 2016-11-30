@@ -41,7 +41,7 @@
           <a class="btn btn-info btn-lg-a" href="#" role="button" ng-click="vm.mostrarHorarios(m)">{{m.Persona.nombres}} {{m.Persona.apaterno}} {{m.Persona.amaterno}}</a></p>
         <br>
       </div>
-      <a href="#" class="btn btn-danger" role="button" ng-click="vm.volverEspecialidades()"><< Volver</a>
+      <a href="#" class="btn btn-danger" role="button" ng-click="vm.volverEspecialidades()"> Volver</a>
     </div>
     <div ng-show="vm.verHorarios">
       <h3 class="page-header">Horarios</h3>
@@ -57,21 +57,21 @@
         </a></p>
         <br>
       </div>
-      <a href="#" class="btn btn-danger" role="button" ng-click="vm.volverMedicos()"><< Volver</a>
+      <a href="#" class="btn btn-danger" role="button" ng-click="vm.volverMedicos()"> Volver</a>
     </div>
 
     <div ng-show="vm.verFichas">
       <h3 class="page-header">Fichas</h3>
       <div ng-repeat="n in vm.fichas">
           <a class="btn btn-danger btn-lg-a" ng-show="n.estado =='OCUPADO'" href="#" role="button">
-            {{n.nro}} >> {{vm.obtenerHora(vm.h.hora_inicio,n.nro,vm.h.minutos)}}
+            {{n.nro}} >> {{vm.obtenerHora(vm.h.hora_inicio,n.nro,vm.h.minutos)}} - {{vm.obtenerHora2(vm.h.hora_inicio,n.nro,vm.h.minutos)}}
           </a></p>
           <a class="btn btn-info btn-lg-a" ng-show="n.estado =='DISPONIBLE'" href="#" role="button" ng-click="vm.mostrarReservar(n)">
-            {{n.nro}} >> {{vm.obtenerHora(vm.h.hora_inicio,n.nro,vm.h.minutos)}}
+            {{n.nro}} >> {{vm.obtenerHora(vm.h.hora_inicio,n.nro,vm.h.minutos)}} - {{vm.obtenerHora2(vm.h.hora_inicio,n.nro,vm.h.minutos)}}
           </a></p>
         <br>
       </div>
-      <a href="#" class="btn btn-danger" role="button" ng-click="vm.volverHorarios()"><< Volver</a>
+      <a href="#" class="btn btn-danger" role="button" ng-click="vm.volverHorarios()"> Volver</a>
     </div>
 
     <div ng-show="vm.verReseva">
@@ -89,7 +89,7 @@
       <a class="btn btn-success btn-lg" href="#" role="button" ng-click="vm.open(vm.n.nro,vm.h)">
         Reservar
       </a></p>
-      <a href="#" class="btn btn-danger" role="button" ng-click="vm.volverFichas()"><< Volver</a>
+      <a href="#" class="btn btn-danger" role="button" ng-click="vm.volverFichas()"> Volver</a>
     </div>
 </div>
 <div class="col-md-2">

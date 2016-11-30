@@ -147,6 +147,14 @@ class ReservaComponent {
   }
 
   obtenerHora(hora, n, minutos){
+    n = n-1;
+    var date = new Date(hora);
+    var minutes = n*minutos;
+    var newdate = new Date(date.getTime() + minutes*60000);
+    return newdate.toLocaleTimeString();
+  }
+
+  obtenerHora2(hora, n, minutos){
     var date = new Date(hora);
     var minutes = n*minutos;
     var newdate = new Date(date.getTime() + minutes*60000);
