@@ -5,6 +5,9 @@
         <button  type="button" class="btn btn-info" ng-click="vm.abrir()">
           <span class="glyphicon glyphicon-add" aria-hidden="true"></span>Nuevo
         </button>
+        <button  type="button" class="btn btn-succes" ng-click="vm.listar()">
+          <span class="glyphicon glyphicon-add" aria-hidden="true"></span>Actualizar
+        </button>
       </h3>
       <div class="form-group col-md-12">
         <label for="matricula">Buscar:</label>
@@ -37,7 +40,7 @@
             <td>{{us.Persona.genero}}</td>
             <td>{{vm.obtenerDia(us.Persona.fecha_nacimineto)}}</td>
             <td>
-              <button  type="button" class="btn btn-info">
+              <button  type="button" class="btn btn-info" ng-click="vm.editar(us)">
                 <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
               </button>
               <button  type="button" class="btn btn-danger" ng-click="vm.eliminar(us)">
@@ -204,5 +207,82 @@
         <div class="modal-footer">
             <button class="btn btn-success" type="submit" ng-click="vm.eliminar()">SI</button>
             <button class="btn btn-warning" type="button" ng-click="vm.cancel()">NO</button>
+        </div>
+</script>
+
+<script type="text/ng-template" id="usuario-editar.html">
+        <div class="modal-header">
+            <h3 class="modal-title">Usuario</h3>
+        </div>
+        <div class="modal-body">
+          <div class="container pequenio">
+              <div class="content">
+                <div class="row">
+                  <form role="form" >
+                    <div class="col-md-12">
+                      <div class="form-group col-md-4">
+                        <label for="nombre">Nombres </label>
+                        <input type="text" class="form-control" id="nombre" ng-model="vm.persona.nombres" required="true"
+                               placeholder="Nombres">
+                      </div>
+                      <div class="form-group col-md-4">
+                        <label for="apaterno">Ap. Paterno </label>
+                        <input type="text" class="form-control" id="apaterno" ng-model="vm.persona.apaterno"
+                               placeholder="Apellido paterno">
+                      </div>
+                      <div class="form-group col-md-4">
+                        <label for="amaterno">Ap. Materno </label>
+                        <input type="text" class="form-control" id="amaterno" ng-model="vm.persona.amaterno"
+                               placeholder="Apellido materno">
+                      </div>
+                    </div>
+                    <div class="col-md-12">
+                      <div class="form-group col-md-4">
+                        <label for="nombre">Usuario </label>
+                        <input type="text" class="form-control" id="nombre" ng-model="vm.usuario.usuario" required="true"
+                               placeholder="Usuario">
+                      </div>
+                      <div class="form-group col-md-4">
+                        <label for="apaterno">Password </label>
+                        <input type="text" class="form-control" id="apaterno" ng-model="vm.usuario.password" required="true"
+                               placeholder="Password">
+                      </div>
+                      <div class="form-group col-md-4">
+                        <label for="amaterno">Rol </label>
+                               <select class="form-control" ng-model="vm.usuario.rol">
+                                 <option value="ASEGURADO" selected="selected">ASEGURADO</option>
+                                 <option value="BIOESTADISTICO">BIOESTADISTICO</option>
+                                 <option value="RECEPCIONISTA">RECEPCIONISTA</option>
+                                 <option value="ADMIN">ADMIN</option>
+                               </select>
+                      </div>
+                    </div>
+                    <div class="col-md-12">
+                      <div class="form-group col-md-6">
+                        <label for="genero">Genero </label>
+                               <select class="form-control" ng-model="vm.persona.genero" value="MASCULINO">
+                                 <option value="MASCULINO" selected="selected">MASCULINO</option>
+                                 <option value="FEMENINO">FEMENINO</option>
+                               </select>
+
+                      </div>
+                      <div class="form-group col-md-6">
+                        <label for="fechanac">Fecha Nacimiento </label>
+                               <p class="input-group">
+                                 <input type="text" class="form-control" uib-datepicker-popup="yyyy-MM-dd" ng-model="vm.persona.fecha_nacimineto" is-open="vm.opened" datepicker-options="vm.dateOptions" ng-required="true" close-text="Close"/>
+                                 <span class="input-group-btn">
+                                   <button type="button" class="btn btn-default" ng-click="vm.abrirPopup()"><i class="glyphicon glyphicon-calendar"></i></button>
+                                 </span>
+                               </p>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+              </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-success" type="submit" ng-click="vm.ok()">Guardar</button>
+            <button class="btn btn-warning" type="button" ng-click="vm.cancel()">Cancelar</button>
         </div>
 </script>

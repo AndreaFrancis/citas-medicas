@@ -2,16 +2,21 @@
 (function(){
 
 class UsuarioComponent {
-  constructor($http, $uibModal) {
+  constructor($http, $uibModal,$state) {
     this.$uibModal = $uibModal;
   	this.$http = $http;
     this.persona = {};
     this.usuario = {};
     this.usuarios = [];
+    this.$state = $state;
   }
 
   $onInit() {
       this.listar();
+  }
+
+  editar(us){
+    this.usuario = us;
   }
 
   obtenerDia(fecha){

@@ -19,6 +19,7 @@ class HorarioComponent {
   listar() {
   	this.$http.get('/api/horarios')
         .then(response => {
+          console.log(response);  
           this.horarios = response.data;
         });
   }
